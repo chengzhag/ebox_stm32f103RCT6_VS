@@ -27,7 +27,7 @@ LINUX_PACKAGES +=
 CFLAGS += 
 CXXFLAGS += 
 ASFLAGS += 
-LDFLAGS += --specs=nano.specs 
+LDFLAGS +=  
 COMMONFLAGS += -mcpu=cortex-m3 -mthumb
 LINKER_SCRIPT := $(BSP_ROOT)/STM32F1xxxx/LinkerScripts/STM32F103RC_flash.lds
 

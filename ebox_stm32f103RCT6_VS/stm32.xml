@@ -13,7 +13,7 @@
       </KeyValue>
       <KeyValue>
         <Key>com.sysprogs.toolchainoptions.arm.libctype</Key>
-        <Value>--specs=nano.specs</Value>
+        <Value />
       </KeyValue>
       <KeyValue>
         <Key>com.sysprogs.toolchainoptions.arm.libnosys</Key>

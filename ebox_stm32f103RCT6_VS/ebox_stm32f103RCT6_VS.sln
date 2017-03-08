@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ebox_stm32f103RCT6_VS", "ebox_stm32f103RCT6_VS\ebox_stm32f103RCT6_VS.vcxproj", "{BC438066-5352-4F96-A038-C392344CACD2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ebox_stm32f103RCT6_VS", "ebox_stm32f103RCT6_VS.vcxproj", "{80AE89F8-6976-411C-9D00-9263B39FD2C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,12 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BC438066-5352-4F96-A038-C392344CACD2}.Debug|x64.ActiveCfg = Debug|Win32
-		{BC438066-5352-4F96-A038-C392344CACD2}.Debug|x86.ActiveCfg = Debug|Win32
-		{BC438066-5352-4F96-A038-C392344CACD2}.Debug|x86.Build.0 = Debug|Win32
-		{BC438066-5352-4F96-A038-C392344CACD2}.Release|x64.ActiveCfg = Release|Win32
-		{BC438066-5352-4F96-A038-C392344CACD2}.Release|x86.ActiveCfg = Release|Win32
-		{BC438066-5352-4F96-A038-C392344CACD2}.Release|x86.Build.0 = Release|Win32
+		{80AE89F8-6976-411C-9D00-9263B39FD2C3}.Debug|x64.ActiveCfg = Debug|Win32
+		{80AE89F8-6976-411C-9D00-9263B39FD2C3}.Debug|x86.ActiveCfg = Debug|Win32
+		{80AE89F8-6976-411C-9D00-9263B39FD2C3}.Debug|x86.Build.0 = Debug|Win32
+		{80AE89F8-6976-411C-9D00-9263B39FD2C3}.Release|x64.ActiveCfg = Release|Win32
+		{80AE89F8-6976-411C-9D00-9263B39FD2C3}.Release|x86.ActiveCfg = Release|Win32
+		{80AE89F8-6976-411C-9D00-9263B39FD2C3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

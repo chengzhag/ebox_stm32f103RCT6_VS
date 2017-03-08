@@ -2,36 +2,36 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source files">
-      <UniqueIdentifier>{e7bf13dd-d8ab-460f-9f83-985791acdd82}</UniqueIdentifier>
+      <UniqueIdentifier>{dffe9176-3915-4d20-a304-62e8578b0a13}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Header files">
-      <UniqueIdentifier>{eb843428-3c7b-421c-b242-c53d65209f09}</UniqueIdentifier>
+      <UniqueIdentifier>{58071413-5a6a-419c-b8f5-f6a69f956f63}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Resource files">
-      <UniqueIdentifier>{d0990715-be53-4d64-9633-3e157ff0acea}</UniqueIdentifier>
+      <UniqueIdentifier>{8df84910-26a0-4023-bdb0-f71ee910c96f}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="Make files">
-      <UniqueIdentifier>{23883388-2c35-4fcd-9b20-0a49525d1439}</UniqueIdentifier>
+      <UniqueIdentifier>{8ff9f9b1-7284-4284-8483-12f7332362e3}</UniqueIdentifier>
       <Extensions>*.mak</Extensions>
     </Filter>
     <Filter Include="VisualGDB settings">
-      <UniqueIdentifier>{ff1499ab-e4fd-459a-b7c6-85fd97ec44b0}</UniqueIdentifier>
+      <UniqueIdentifier>{cb502178-f6aa-417b-b1bf-edeef0027b09}</UniqueIdentifier>
       <Extensions>*.vgdbsettings</Extensions>
     </Filter>
     <Filter Include="Source files\Device-specific files">
-      <UniqueIdentifier>{a1e91c9c-53b0-43b6-b385-33da6472ac71}</UniqueIdentifier>
+      <UniqueIdentifier>{13f3d820-8ecf-459b-9195-12972dbd0b66}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header files\Device-specific files">
-      <UniqueIdentifier>{e4d57942-a5ff-47cd-8889-9e1deb17d905}</UniqueIdentifier>
+      <UniqueIdentifier>{63b3668e-14ca-43f8-8cab-8574d04e18eb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source files\Device-specific files\StdPeriph">
-      <UniqueIdentifier>{b58bc61e-2920-48e0-ba98-85cf3c3fae72}</UniqueIdentifier>
+      <UniqueIdentifier>{41bb80dd-128f-4b6b-8dcc-6deb38fcf9d5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header files\Device-specific files\StdPeriph">
-      <UniqueIdentifier>{67a1e3e4-2ce2-4d2b-ae90-87ac5cd4f6c0}</UniqueIdentifier>
+      <UniqueIdentifier>{422b0cf0-0211-462c-ae8f-1f6dfe67ab49}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
