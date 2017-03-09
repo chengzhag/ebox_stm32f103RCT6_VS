@@ -37,7 +37,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeIncludeSearchPath>.;c:\sysgcc\arm-eabi\arm-eabi\include\c++\6.2.0;c:\sysgcc\arm-eabi\arm-eabi\include\c++\6.2.0\arm-eabi\thumb\cortex_m3;c:\sysgcc\arm-eabi\arm-eabi\include\c++\6.2.0\backward;c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\6.2.0\include;c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\6.2.0\include-fixed;c:\sysgcc\arm-eabi\arm-eabi\sys-include;c:\sysgcc\arm-eabi\arm-eabi\include;$(LOCALAPPDATA)\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\STM32F10x_StdPeriph_Driver\inc;$(LOCALAPPDATA)\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\CMSIS_StdPeriph\CM3\CoreSupport;$(LOCALAPPDATA)\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\CMSIS_StdPeriph\CM3\DeviceSupport\ST\STM32F10x;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>mcu\stm32f10x\ebox;common\util;common\edriver;common\network;common\fat;common\edriver\WiFi;user;common\cJSON;common\edriver\SFUD\sfud\inc;common\edriver\SFUD\ebox;common\bigiot;common\usb_device_stack\USBDevice;common\usb_device_stack\USBHID;os\FreeRTOS\Source\include;.;$(LOCALAPPDATA)\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\STM32F10x_StdPeriph_Driver\inc;$(LOCALAPPDATA)\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\CMSIS_StdPeriph\CM3\CoreSupport;$(LOCALAPPDATA)\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\CMSIS_StdPeriph\CM3\DeviceSupport\ST\STM32F10x;c:\sysgcc\arm-eabi\arm-eabi\include\c++\6.2.0;c:\sysgcc\arm-eabi\arm-eabi\include\c++\6.2.0\arm-eabi\thumb\cortex_m3;c:\sysgcc\arm-eabi\arm-eabi\include\c++\6.2.0\backward;c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\6.2.0\include;c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\6.2.0\include-fixed;c:\sysgcc\arm-eabi\arm-eabi\sys-include;c:\sysgcc\arm-eabi\arm-eabi\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeForcedIncludes>$(ProjectDir)\gcc_Debug.h;$(VISUALGDB_DIR)\gcc_compat.h;$(LOCALAPPDATA)\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\stm32_compat.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakeBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /build "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /clean "$(ProjectPath)" "/solution:$(SolutionPath)" "/config:$(Configuration)" "/platform:$(Platform)"</NMakeCleanCommandLine>
@@ -88,7 +88,59 @@
     <ClCompile Include="C:\Users\Sky\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c" />
     <ClCompile Include="C:\Users\Sky\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c" />
     <ClCompile Include="C:\Users\Sky\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\STM32F10x_StdPeriph_Driver\src\stm32f10x_wwdg.c" />
+    <ClCompile Include="common\edriver\74HC595.cpp" />
+    <ClCompile Include="common\edriver\at24c02.cpp" />
+    <ClCompile Include="common\edriver\at45db.cpp" />
+    <ClCompile Include="common\edriver\Button.cpp" />
+    <ClCompile Include="common\edriver\colorled.cpp" />
+    <ClCompile Include="common\edriver\dht11.cpp" />
+    <ClCompile Include="common\edriver\DS3231.cpp" />
+    <ClCompile Include="common\edriver\encoder.cpp" />
+    <ClCompile Include="common\edriver\fm25v.cpp" />
+    <ClCompile Include="common\edriver\FT800.cpp" />
+    <ClCompile Include="common\edriver\GP2Y1051.cpp" />
+    <ClCompile Include="common\edriver\ir_decoder.cpp" />
+    <ClCompile Include="common\edriver\ir_encoder.cpp" />
+    <ClCompile Include="common\edriver\key_dm.cpp" />
+    <ClCompile Include="common\edriver\L3G4200D.cpp" />
+    <ClCompile Include="common\edriver\LCD1602.cpp" />
+    <ClCompile Include="common\edriver\lcd_1.8.cpp" />
+    <ClCompile Include="common\edriver\LED.cpp" />
+    <ClCompile Include="common\edriver\led_segment.cpp" />
+    <ClCompile Include="common\edriver\lsm303dhlc.cpp" />
+    <ClCompile Include="common\edriver\LTC1446.cpp" />
+    <ClCompile Include="common\edriver\Max7456.cpp" />
+    <ClCompile Include="common\edriver\mmc_sd.cpp" />
+    <ClCompile Include="common\edriver\MPU6050.CPP" />
+    <ClCompile Include="common\edriver\Nokia5110.cpp" />
+    <ClCompile Include="common\edriver\NRF24L01.cpp" />
+    <ClCompile Include="common\edriver\OLED.cpp" />
+    <ClCompile Include="common\edriver\OLED_ssd1306.cpp" />
+    <ClCompile Include="common\edriver\parallel_gpio.cpp" />
+    <ClCompile Include="common\edriver\si4432.cpp" />
+    <ClCompile Include="common\edriver\TM1638.cpp" />
+    <ClCompile Include="common\edriver\ultrasonic_wave.cpp" />
+    <ClCompile Include="common\edriver\w25x16.cpp" />
+    <ClCompile Include="common\edriver\w5500.cpp" />
+    <ClCompile Include="common\edriver\ws2812.cpp" />
+    <ClCompile Include="common\network\dhcp.cpp" />
+    <ClCompile Include="common\network\dns.cpp" />
+    <ClCompile Include="common\network\socket.cpp" />
+    <ClCompile Include="common\network\tcp.cpp" />
+    <ClCompile Include="common\network\udp.cpp" />
+    <ClCompile Include="common\util\calendar.cpp" />
+    <ClCompile Include="common\util\color_convert.cpp" />
+    <ClCompile Include="common\util\dtostrf.c" />
+    <ClCompile Include="common\util\ebox_mem.c" />
+    <ClCompile Include="common\util\heap.c" />
+    <ClCompile Include="common\util\itoa.c" />
+    <ClCompile Include="common\util\print.cpp" />
+    <ClCompile Include="common\util\ringbuf.cpp" />
+    <ClCompile Include="common\util\util.cpp" />
+    <ClCompile Include="common\util\WString.cpp" />
     <ClCompile Include="LEDBlink.cpp" />
+    <ClCompile Include="mcu\stm32f10x\ebox\ebox_can.cpp" />
+    <ClCompile Include="mcu\stm32f10x\ebox\object.cpp" />
     <ClCompile Include="system_stm32f10x.c" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +181,9 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="stm32.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="mcu\stm32f10x\ebox\ebox.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

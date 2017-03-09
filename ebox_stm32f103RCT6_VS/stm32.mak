@@ -17,7 +17,7 @@ OBJCOPY := $(TOOLCHAIN_ROOT)/bin/arm-eabi-objcopy.exe
 
 #Additional flags
 PREPROCESSOR_MACROS += ARM_MATH_CM3 STM32F103RC stm32_flash_layout STM32F10X_HD
-INCLUDE_DIRS += . $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/inc $(BSP_ROOT)/STM32F1xxxx/CMSIS_StdPeriph/CM3/CoreSupport 
+INCLUDE_DIRS += . $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/inc $(BSP_ROOT)/STM32F1xxxx/CMSIS_StdPeriph/CM3/CoreSupport $(BSP_ROOT)/STM32F1xxxx/CMSIS_StdPeriph/CM3/DeviceSupport/ST/STM32F10x
 LIBRARY_DIRS += 
 LIBRARY_NAMES += 
 ADDITIONAL_LINKER_INPUTS += 

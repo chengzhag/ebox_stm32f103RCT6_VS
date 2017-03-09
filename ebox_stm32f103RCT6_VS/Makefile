@@ -35,7 +35,7 @@ error:
 	$(error Invalid configuration, please check your inputs)
 endif
 
-SOURCEFILES := $(BSP_ROOT)/STM32F1xxxx/CMSIS_StdPeriph/CM3/CoreSupport/core_cm3.c $(BSP_ROOT)/STM32F1xxxx/StartupFiles/startup_stm32f103xe.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/misc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_adc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_bkp.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_can.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_cec.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_crc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_dac.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_dbgmcu.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_dma.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_exti.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_flash.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_fsmc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_gpio.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_i2c.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_iwdg.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_pwr.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_rtc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_sdio.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_spi.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_tim.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_wwdg.c LEDBlink.cpp system_stm32f10x.c
+SOURCEFILES := $(BSP_ROOT)/STM32F1xxxx/CMSIS_StdPeriph/CM3/CoreSupport/core_cm3.c $(BSP_ROOT)/STM32F1xxxx/StartupFiles/startup_stm32f103xe.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/misc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_adc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_bkp.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_can.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_cec.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_crc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_dac.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_dbgmcu.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_dma.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_exti.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_flash.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_fsmc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_gpio.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_i2c.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_iwdg.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_pwr.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_rtc.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_sdio.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_spi.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_tim.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_wwdg.c common/edriver/74HC595.cpp common/edriver/at24c02.cpp common/edriver/at45db.cpp common/edriver/Button.cpp common/edriver/colorled.cpp common/edriver/dht11.cpp common/edriver/DS3231.cpp common/edriver/encoder.cpp common/edriver/fm25v.cpp common/edriver/FT800.cpp common/edriver/GP2Y1051.cpp common/edriver/ir_decoder.cpp common/edriver/ir_encoder.cpp common/edriver/key_dm.cpp common/edriver/L3G4200D.cpp common/edriver/LCD1602.cpp common/edriver/lcd_1.8.cpp common/edriver/LED.cpp common/edriver/led_segment.cpp common/edriver/lsm303dhlc.cpp common/edriver/LTC1446.cpp common/edriver/Max7456.cpp common/edriver/mmc_sd.cpp common/edriver/MPU6050.CPP common/edriver/Nokia5110.cpp common/edriver/NRF24L01.cpp common/edriver/OLED.cpp common/edriver/OLED_ssd1306.cpp common/edriver/parallel_gpio.cpp common/edriver/si4432.cpp common/edriver/TM1638.cpp common/edriver/ultrasonic_wave.cpp common/edriver/w25x16.cpp common/edriver/w5500.cpp common/edriver/ws2812.cpp common/network/dhcp.cpp common/network/dns.cpp common/network/socket.cpp common/network/tcp.cpp common/network/udp.cpp common/util/calendar.cpp common/util/color_convert.cpp common/util/dtostrf.c common/util/ebox_mem.c common/util/heap.c common/util/itoa.c common/util/print.cpp common/util/ringbuf.cpp common/util/util.cpp common/util/WString.cpp LEDBlink.cpp mcu/stm32f10x/ebox/ebox_can.cpp mcu/stm32f10x/ebox/object.cpp system_stm32f10x.c
 EXTERNAL_LIBS := 
 EXTERNAL_LIBS_COPIED := $(foreach lib, $(EXTERNAL_LIBS),$(BINARYDIR)/$(notdir $(lib)))
 
@@ -279,4 +279,212 @@ $(BINARYDIR)/stm32f10x_usart.o : $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Dri
 
 $(BINARYDIR)/stm32f10x_wwdg.o : $(BSP_ROOT)/STM32F1xxxx/STM32F10x_StdPeriph_Driver/src/stm32f10x_wwdg.c $(all_make_files) |$(BINARYDIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/74HC595.o : common/edriver/74HC595.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/at24c02.o : common/edriver/at24c02.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/at45db.o : common/edriver/at45db.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/Button.o : common/edriver/Button.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/colorled.o : common/edriver/colorled.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/dht11.o : common/edriver/dht11.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/DS3231.o : common/edriver/DS3231.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/encoder.o : common/edriver/encoder.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/fm25v.o : common/edriver/fm25v.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/FT800.o : common/edriver/FT800.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/GP2Y1051.o : common/edriver/GP2Y1051.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/ir_decoder.o : common/edriver/ir_decoder.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/ir_encoder.o : common/edriver/ir_encoder.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/key_dm.o : common/edriver/key_dm.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/L3G4200D.o : common/edriver/L3G4200D.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/LCD1602.o : common/edriver/LCD1602.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/lcd_1.8.o : common/edriver/lcd_1.8.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/LED.o : common/edriver/LED.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/led_segment.o : common/edriver/led_segment.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/lsm303dhlc.o : common/edriver/lsm303dhlc.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/LTC1446.o : common/edriver/LTC1446.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/Max7456.o : common/edriver/Max7456.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/mmc_sd.o : common/edriver/mmc_sd.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/MPU6050.o : common/edriver/MPU6050.CPP $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/Nokia5110.o : common/edriver/Nokia5110.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/NRF24L01.o : common/edriver/NRF24L01.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/OLED.o : common/edriver/OLED.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/OLED_ssd1306.o : common/edriver/OLED_ssd1306.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/parallel_gpio.o : common/edriver/parallel_gpio.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/si4432.o : common/edriver/si4432.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/TM1638.o : common/edriver/TM1638.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/ultrasonic_wave.o : common/edriver/ultrasonic_wave.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/w25x16.o : common/edriver/w25x16.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/w5500.o : common/edriver/w5500.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/ws2812.o : common/edriver/ws2812.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/dhcp.o : common/network/dhcp.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/dns.o : common/network/dns.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/socket.o : common/network/socket.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/tcp.o : common/network/tcp.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/udp.o : common/network/udp.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/calendar.o : common/util/calendar.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/color_convert.o : common/util/color_convert.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/dtostrf.o : common/util/dtostrf.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/ebox_mem.o : common/util/ebox_mem.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/heap.o : common/util/heap.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/itoa.o : common/util/itoa.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/print.o : common/util/print.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/ringbuf.o : common/util/ringbuf.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/util.o : common/util/util.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/WString.o : common/util/WString.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/ebox_can.o : mcu/stm32f10x/ebox/ebox_can.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
+
+
+$(BINARYDIR)/object.o : mcu/stm32f10x/ebox/object.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -MD -MF $(@:.o=.dep)
 

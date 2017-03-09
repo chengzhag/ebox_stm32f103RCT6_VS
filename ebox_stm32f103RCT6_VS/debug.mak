@@ -6,8 +6,8 @@ BINARYDIR := Debug
 
 #Additional flags
 PREPROCESSOR_MACROS := DEBUG=1
-INCLUDE_DIRS := 
-LIBRARY_DIRS := 
+INCLUDE_DIRS := mcu\stm32f10x\ebox mcu\stm32f10x\ebox\core mcu\stm32f10x\ebox\Peripherals common\util common\edriver common\network common\fat common\edriver\WiFi user common\cJSON common\edriver\SFUD\sfud\inc common\edriver\SFUD\ebox common\bigiot common\usb_device_stack\USBDevice common\usb_device_stack\USBHID os\FreeRTOS\Source\include os\FreeRTOS\Source\portable\RVDS\ARM_CM03
+LIBRARY_DIRS := mcu/stm32f10x/ebox
 LIBRARY_NAMES := 
 ADDITIONAL_LINKER_INPUTS := 
 MACOS_FRAMEWORKS := 

@@ -33,6 +33,18 @@
     <Filter Include="Header files\Device-specific files\StdPeriph">
       <UniqueIdentifier>{422b0cf0-0211-462c-ae8f-1f6dfe67ab49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source files\ebox">
+      <UniqueIdentifier>{355864fc-9185-40b1-bfb7-a59394eaa0aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\util">
+      <UniqueIdentifier>{d618fb24-6b5d-447b-bb3c-62e8e14229c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\edriver">
+      <UniqueIdentifier>{58c8f79f-c171-4359-8538-b018686f3cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\network">
+      <UniqueIdentifier>{ef394714-e6b4-482b-a078-2c551dc1fd12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LEDBlink.cpp">
@@ -115,6 +127,162 @@
     </ClCompile>
     <ClCompile Include="C:\Users\Sky\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32F1xxxx\CMSIS_StdPeriph\CM3\CoreSupport\core_cm3.c">
       <Filter>Source files\Device-specific files\StdPeriph</Filter>
+    </ClCompile>
+    <ClCompile Include="mcu\stm32f10x\ebox\ebox_can.cpp">
+      <Filter>Source files\ebox</Filter>
+    </ClCompile>
+    <ClCompile Include="mcu\stm32f10x\ebox\object.cpp">
+      <Filter>Source files\ebox</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\itoa.c">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\calendar.cpp">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\color_convert.cpp">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\print.cpp">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\ringbuf.cpp">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\util.cpp">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\WString.cpp">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\dtostrf.c">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\ebox_mem.c">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\heap.c">
+      <Filter>Source files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\at24c02.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\at45db.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\Button.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\colorled.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\dht11.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\DS3231.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\encoder.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\fm25v.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\FT800.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\GP2Y1051.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\ir_decoder.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\ir_encoder.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\key_dm.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\L3G4200D.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\lcd_1.8.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\LCD1602.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\LED.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\led_segment.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\lsm303dhlc.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\LTC1446.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\Max7456.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\mmc_sd.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\MPU6050.CPP">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\Nokia5110.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\NRF24L01.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\OLED.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\OLED_ssd1306.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\parallel_gpio.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\si4432.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\TM1638.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\ultrasonic_wave.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\w25x16.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\w5500.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\ws2812.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\74HC595.cpp">
+      <Filter>Source files\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\network\dhcp.cpp">
+      <Filter>Source files\network</Filter>
+    </ClCompile>
+    <ClCompile Include="common\network\dns.cpp">
+      <Filter>Source files\network</Filter>
+    </ClCompile>
+    <ClCompile Include="common\network\socket.cpp">
+      <Filter>Source files\network</Filter>
+    </ClCompile>
+    <ClCompile Include="common\network\tcp.cpp">
+      <Filter>Source files\network</Filter>
+    </ClCompile>
+    <ClCompile Include="common\network\udp.cpp">
+      <Filter>Source files\network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,5 +387,10 @@
     <Xml Include="stm32.xml">
       <Filter>VisualGDB settings</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="mcu\stm32f10x\ebox\ebox.lib">
+      <Filter>Source files\ebox</Filter>
+    </Library>
   </ItemGroup>
 </Project>
