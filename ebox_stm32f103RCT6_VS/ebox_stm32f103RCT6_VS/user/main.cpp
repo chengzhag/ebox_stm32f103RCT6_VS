@@ -22,10 +22,10 @@ void led_on(int n)
     switch (n)
     {
     case LED_0:
-        PB8 = 1;
+        PA8 = 1;
         break;
     case LED_1:
-        PB9 = 1;
+        PD2 = 1;
         break;
     case LED_2:
         PB10 = 1;
@@ -40,10 +40,10 @@ void led_off(int n)
     switch (n)
     {
     case LED_0:
-        PB8 = 0;
+        PA8 = 0;
         break;
     case LED_1:
-        PB9 = 0;
+        PD2 = 0;
         break;
     case LED_2:
         PB10 = 0;
@@ -69,8 +69,8 @@ static void vLEDTask( void *pvParameters )
 void setup()
 {
     ebox_init();
-    PB8.mode(OUTPUT_PP);
-    PB9.mode(OUTPUT_PP);
+    PA8.mode(OUTPUT_PP);
+    PD2.mode(OUTPUT_PP);
     PB10.mode(OUTPUT_PP);
 	uart1.begin(115200);
 	

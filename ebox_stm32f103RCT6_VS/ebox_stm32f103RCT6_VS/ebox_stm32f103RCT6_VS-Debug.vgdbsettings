@@ -142,7 +142,7 @@
     <SemihostingSupport>Auto</SemihostingSupport>
     <StepIntoEntryPoint>false</StepIntoEntryPoint>
     <ReloadFirmwareOnReset>false</ReloadFirmwareOnReset>
-    <ValidateEndOfStackAddress>true</ValidateEndOfStackAddress>
+    <ValidateEndOfStackAddress>false</ValidateEndOfStackAddress>
     <StopAtEntryPoint>false</StopAtEntryPoint>
   </Debug>
   <CustomBuild>

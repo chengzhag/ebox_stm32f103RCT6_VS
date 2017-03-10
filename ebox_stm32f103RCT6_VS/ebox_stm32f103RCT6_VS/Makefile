@@ -134,9 +134,23 @@ ifneq ($(LINKER_SCRIPT),)
 $(BINARYDIR)/$(TARGETNAME): $(LINKER_SCRIPT)
 endif
 
+#ifeq ($(TARGETTYPE),APP)
+#$(BINARYDIR)/$(TARGETNAME): $(all_objs) $(EXTERNAL_LIBS)
+	#$(LD) -o $@ $(LDFLAGS) $(START_GROUP) $(all_objs) $(LIBRARY_LDFLAGS) $(END_GROUP)
+#endif
+
 ifeq ($(TARGETTYPE),APP)
+ROM_SECTION_NAME := ER_RO
 $(BINARYDIR)/$(TARGETNAME): $(all_objs) $(EXTERNAL_LIBS)
-	$(LD) -o $@ $(LDFLAGS) $(START_GROUP) $(all_objs) $(LIBRARY_LDFLAGS) $(END_GROUP)
+	$(LD) -o $(@:.elf=.axf) $(LDFLAGS) $(START_GROUP) $(all_objs) \
+	  $(LIBRARY_LDFLAGS) $(END_GROUP)
+	$(FROMELF) --bin --output $(@:.elf=.bin) $(@:.elf=.axf)
+	$(OBJCOPY) --remove-section $(ROM_SECTION_NAME) \
+        --add-section $(ROM_SECTION_NAME)=$(@:.elf=.bin) \
+        --set-section-flags \
+        $(ROM_SECTION_NAME)=CONTENTS,ALLOC,LOAD,READONLY,CODE \
+        --change-section-address $(ROM_SECTION_NAME)=0x08000000 \
+        $(@:.elf=.axf) $@
 endif
 
 ifeq ($(TARGETTYPE),SHARED)
