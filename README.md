@@ -1,2 +1,3 @@
 # ebox_stm32f103RCT6_VS
 为stm32f103RCT6配置好的ebox，visual studio项目，方便以后使用
+vs工程和移植注意事项在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文件夹下
