@@ -37,7 +37,7 @@ error:
 	$(error Invalid configuration, please check your inputs)
 endif
 
-SOURCEFILES := mcu/stm32f10x/libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/startup/arm/startup_stm32f10x_hd.s common/edriver/74HC595.cpp common/edriver/at24c02.cpp common/edriver/at45db.cpp common/edriver/Button.cpp common/edriver/colorled.cpp common/edriver/dht11.cpp common/edriver/DS3231.cpp common/edriver/encoder.cpp common/edriver/fm25v.cpp common/edriver/FT800.cpp common/edriver/GP2Y1051.cpp common/edriver/ir_decoder.cpp common/edriver/ir_encoder.cpp common/edriver/key_dm.cpp common/edriver/L3G4200D.cpp common/edriver/LCD1602.cpp common/edriver/lcd_1.8.cpp common/edriver/LED.cpp common/edriver/led_segment.cpp common/edriver/lsm303dhlc.cpp common/edriver/LTC1446.cpp common/edriver/Max7456.cpp common/edriver/mmc_sd.cpp common/edriver/MPU6050.cpp common/edriver/Nokia5110.cpp common/edriver/NRF24L01.cpp common/edriver/OLED.cpp common/edriver/OLED_ssd1306.cpp common/edriver/parallel_gpio.cpp common/edriver/si4432.cpp common/edriver/TM1638.cpp common/edriver/ultrasonic_wave.cpp common/edriver/w25x16.cpp common/edriver/w5500.cpp common/edriver/ws2812.cpp common/network/dhcp.cpp common/network/dns.cpp common/network/socket.cpp common/network/tcp.cpp common/network/udp.cpp common/util/calendar.cpp common/util/color_convert.cpp common/util/dtostrf.c common/util/ebox_mem.c common/util/heap.c common/util/itoa.c common/util/print.cpp common/util/ringbuf.cpp common/util/util.cpp common/util/WString.cpp mcu/stm32f10x/ebox/ebox_can.cpp mcu/stm32f10x/ebox/object.cpp mcu/stm32f10x/libraries/CMSIS/CM3/CoreSupport/core_cm3.c mcu/stm32f10x/libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/misc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_adc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_bkp.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_can.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_cec.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_crc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_dac.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_dbgmcu.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_dma.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_exti.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_flash.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_fsmc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_gpio.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_i2c.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_iwdg.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_pwr.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_rtc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_sdio.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_spi.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_tim.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_wwdg.c os/FreeRTOS/Source/croutine.c os/FreeRTOS/Source/event_groups.c os/FreeRTOS/Source/list.c os/FreeRTOS/Source/queue.c os/FreeRTOS/Source/tasks.c os/FreeRTOS/Source/timers.c os/FreeRTOS/Source/portable/MemMang/heap_4.c os/FreeRTOS/Source/portable/RVDS/ARM_CM3/port.c user/bsp.cpp user/main.cpp
+SOURCEFILES := mcu/stm32f10x/libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/startup/arm/startup_stm32f10x_hd.s common/edriver/74HC595.cpp common/edriver/at24c02.cpp common/edriver/at45db.cpp common/edriver/Button.cpp common/edriver/colorled.cpp common/edriver/dht11.cpp common/edriver/ds18b20.cpp common/edriver/DS3231.cpp common/edriver/encoder.cpp common/edriver/fm25v.cpp common/edriver/FT800.cpp common/edriver/GP2Y1051.cpp common/edriver/ir_decoder.cpp common/edriver/ir_encoder.cpp common/edriver/key_dm.cpp common/edriver/L3G4200D.cpp common/edriver/LCD1602.cpp common/edriver/lcd_1.8.cpp common/edriver/LED.cpp common/edriver/led_segment.cpp common/edriver/lsm303dhlc.cpp common/edriver/LTC1446.cpp common/edriver/Max7456.cpp common/edriver/mmc_sd.cpp common/edriver/MPU6050.cpp common/edriver/Nokia5110.cpp common/edriver/NRF24L01.cpp common/edriver/OLED.cpp common/edriver/OLED_ssd1306.cpp common/edriver/parallel_gpio.cpp common/edriver/si4432.cpp common/edriver/TM1638.cpp common/edriver/ultrasonic_wave.cpp common/edriver/w25x16.cpp common/edriver/w5500.cpp common/edriver/ws2812.cpp common/FreeModbus/modbus/mb.c common/FreeModbus/modbus/ascii/mbascii.c common/FreeModbus/modbus/functions/mbfunccoils.c common/FreeModbus/modbus/functions/mbfuncdiag.c common/FreeModbus/modbus/functions/mbfuncdisc.c common/FreeModbus/modbus/functions/mbfuncholding.c common/FreeModbus/modbus/functions/mbfuncinput.c common/FreeModbus/modbus/functions/mbfuncother.c common/FreeModbus/modbus/functions/mbutils.c common/FreeModbus/modbus/rtu/mbcrc.c common/FreeModbus/modbus/rtu/mbrtu.c common/FreeModbus/modbus/tcp/mbtcp.c common/FreeModbus/port/FreeModbus.cpp common/FreeModbus/port/portevent.c common/FreeModbus/port/portserial.cpp common/FreeModbus/port/porttimer.cpp common/gui/Font16_ASCII.cpp common/gui/Font16_HZ.cpp common/gui/Font32_ASCII.cpp common/gui/Font8_ASCII.cpp common/gui/gui.cpp common/gui/lcd_port.cpp common/network/dhcp.cpp common/network/dns.cpp common/network/socket.cpp common/network/tcp.cpp common/network/udp.cpp common/util/calendar.cpp common/util/color_convert.cpp common/util/crc.c common/util/dtostrf.c common/util/ebox_mem.c common/util/heap.c common/util/itoa.c common/util/print.cpp common/util/ringbuf.cpp common/util/util.cpp common/util/WString.cpp mcu/stm32f10x/ebox/ebox_can.cpp mcu/stm32f10x/ebox/object.cpp mcu/stm32f10x/libraries/CMSIS/CM3/CoreSupport/core_cm3.c mcu/stm32f10x/libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/misc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_adc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_bkp.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_can.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_cec.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_crc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_dac.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_dbgmcu.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_dma.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_exti.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_flash.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_fsmc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_gpio.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_i2c.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_iwdg.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_pwr.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_rtc.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_sdio.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_spi.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_tim.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c mcu/stm32f10x/libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_wwdg.c os/FreeRTOS/Source/croutine.c os/FreeRTOS/Source/event_groups.c os/FreeRTOS/Source/list.c os/FreeRTOS/Source/queue.c os/FreeRTOS/Source/tasks.c os/FreeRTOS/Source/timers.c os/FreeRTOS/Source/portable/MemMang/heap_4.c os/FreeRTOS/Source/portable/RVDS/ARM_CM3/port.c user/bsp.cpp user/main.cpp
 EXTERNAL_LIBS := 
 EXTERNAL_LIBS_COPIED := $(foreach lib, $(EXTERNAL_LIBS),$(BINARYDIR)/$(notdir $(lib)))
 
@@ -143,7 +143,7 @@ ifeq ($(TARGETTYPE),APP)
 ROM_SECTION_NAME := ER_RO
 $(BINARYDIR)/$(TARGETNAME): $(all_objs) $(EXTERNAL_LIBS)
 	$(LD) -o $(@:.elf=.axf) $(LDFLAGS) $(START_GROUP) $(all_objs) \
-	  $(LIBRARY_LDFLAGS) $(END_GROUP)
+      $(LIBRARY_LDFLAGS) $(END_GROUP)
 	$(FROMELF) --bin --output $(@:.elf=.bin) $(@:.elf=.axf)
 	$(OBJCOPY) --remove-section $(ROM_SECTION_NAME) \
         --add-section $(ROM_SECTION_NAME)=$(@:.elf=.bin) \
@@ -222,6 +222,10 @@ $(BINARYDIR)/colorled.o : common/edriver/colorled.cpp $(all_make_files) |$(BINAR
 
 
 $(BINARYDIR)/dht11.o : common/edriver/dht11.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/ds18b20.o : common/edriver/ds18b20.cpp $(all_make_files) |$(BINARYDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
 
 
@@ -341,6 +345,94 @@ $(BINARYDIR)/ws2812.o : common/edriver/ws2812.cpp $(all_make_files) |$(BINARYDIR
 	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
 
 
+$(BINARYDIR)/mb.o : common/FreeModbus/modbus/mb.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbascii.o : common/FreeModbus/modbus/ascii/mbascii.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbfunccoils.o : common/FreeModbus/modbus/functions/mbfunccoils.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbfuncdiag.o : common/FreeModbus/modbus/functions/mbfuncdiag.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbfuncdisc.o : common/FreeModbus/modbus/functions/mbfuncdisc.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbfuncholding.o : common/FreeModbus/modbus/functions/mbfuncholding.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbfuncinput.o : common/FreeModbus/modbus/functions/mbfuncinput.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbfuncother.o : common/FreeModbus/modbus/functions/mbfuncother.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbutils.o : common/FreeModbus/modbus/functions/mbutils.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbcrc.o : common/FreeModbus/modbus/rtu/mbcrc.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbrtu.o : common/FreeModbus/modbus/rtu/mbrtu.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/mbtcp.o : common/FreeModbus/modbus/tcp/mbtcp.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/FreeModbus.o : common/FreeModbus/port/FreeModbus.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/portevent.o : common/FreeModbus/port/portevent.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/portserial.o : common/FreeModbus/port/portserial.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/porttimer.o : common/FreeModbus/port/porttimer.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/Font16_ASCII.o : common/gui/Font16_ASCII.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/Font16_HZ.o : common/gui/Font16_HZ.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/Font32_ASCII.o : common/gui/Font32_ASCII.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/Font8_ASCII.o : common/gui/Font8_ASCII.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/gui.o : common/gui/gui.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/lcd_port.o : common/gui/lcd_port.cpp $(all_make_files) |$(BINARYDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
 $(BINARYDIR)/dhcp.o : common/network/dhcp.cpp $(all_make_files) |$(BINARYDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
 
@@ -367,6 +459,10 @@ $(BINARYDIR)/calendar.o : common/util/calendar.cpp $(all_make_files) |$(BINARYDI
 
 $(BINARYDIR)/color_convert.o : common/util/color_convert.cpp $(all_make_files) |$(BINARYDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
+
+
+$(BINARYDIR)/crc.o : common/util/crc.c $(all_make_files) |$(BINARYDIR)
+	$(CC) $(CFLAGS) -c $< -o $@ --depend $(@:.o=.dep)
 
 
 $(BINARYDIR)/dtostrf.o : common/util/dtostrf.c $(all_make_files) |$(BINARYDIR)

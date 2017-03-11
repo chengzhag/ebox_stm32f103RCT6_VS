@@ -5,7 +5,7 @@ LD := $(KEIL_ROOT)/bin/armlink.exe
 AR := $(KEIL_ROOT)/bin/armar.exe
 FROMELF := $(KEIL_ROOT)/bin/fromelf.exe
 
-COMMONFLAGS += --cpu Cortex-M3 --apcs=interwork 
+COMMONFLAGS += --cpu Cortex-M3 --apcs=interwork
 
 LDFLAGS += --cpu Cortex-M3 \
 --ro-base 0x08000000 \

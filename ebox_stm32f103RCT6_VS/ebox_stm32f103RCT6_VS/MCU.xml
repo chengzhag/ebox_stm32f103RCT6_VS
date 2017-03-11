@@ -32,11 +32,17 @@
         <string>common/bigiot</string>
         <string>common/usb_device_stack/USBDevice</string>
         <string>common/usb_device_stack/USBHID</string>
-        <string>os/FreeRTOS/Source/include</string>
-        <string>os/FreeRTOS/Source/portable/RVDS/ARM_CM3</string>
+        <string>common/gui</string>
+        <string>common/FreeModbus/modbus/ascii</string>
+        <string>common/FreeModbus/modbus/include</string>
+        <string>common/FreeModbus/modbus/rtu</string>
+        <string>common/FreeModbus/modbus/tcp</string>
+        <string>common/FreeModbus/port</string>
         <string>Project/stm32f10x/mdk/RTE</string>
         <string>C:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/1.0.5/Device/Include</string>
         <string>C:/Keil_v5/ARM/CMSIS/Include</string>
+        <string>os/FreeRTOS/Source/include</string>
+        <string>os/FreeRTOS/Source/portable/RVDS/ARM_CM3</string>
       </IncludeDirectories>
       <CFLAGS />
       <CXXFLAGS />

@@ -1,99 +1,40 @@
-/*
-file   : *.cpp
-author : shentq
-version: V1.0
-date   : 2015/7/5
+/**
+  ******************************************************************************
+  * @file   : *.cpp
+  * @author : shentq
+  * @version: V1.2
+  * @date   : 2016/08/14
 
-Copyright 2015 shentq. All Rights Reserved.
-*/
-#include "freertos.h"
-#include "task.h"
-#include "queue.h"
+  * @brief   ebox application example .
+  *
+  * Copyright 2016 shentq. All Rights Reserved.         
+  ******************************************************************************
+ */
 
-//STM32 RUN IN eBox
 #include "ebox.h"
-#define LED_0 0
-#define LED_1 1
-#define LED_2 2
-#define LED_3 3
-
-void led_on(int n)
-{
-    switch (n)
-    {
-    case LED_0:
-        PA8 = 1;
-        break;
-    case LED_1:
-        PD2 = 1;
-        break;
-    case LED_2:
-        PB10 = 1;
-        break;
-    default:
-        break;
-    }
-}
-
-void led_off(int n)
-{
-    switch (n)
-    {
-    case LED_0:
-        PA8 = 0;
-        break;
-    case LED_1:
-        PD2 = 0;
-        break;
-    case LED_2:
-        PB10 = 0;
-        break;
-    default:
-        break;
-    }
-}
-
-
-static void vLEDTask( void *pvParameters )
-{
-    while(1)
-    {
-		uart1.printf("task%d\r\n",pvParameters);
-        led_on((int)pvParameters);
-        vTaskDelay(500 / portTICK_RATE_MS);
-        led_off((int)pvParameters);
-        vTaskDelay(500 / portTICK_RATE_MS);
-    }
-}
-
+#include "ds18b20.h"
+Ds18b20 ds(&PA0);
 void setup()
 {
+    int ret;
     ebox_init();
-    PA8.mode(OUTPUT_PP);
-    PD2.mode(OUTPUT_PP);
-    PB10.mode(OUTPUT_PP);
-	uart1.begin(115200);
-	
-
-    set_systick_user_event_per_sec(configTICK_RATE_HZ);
-    attach_systick_user_event(xPortSysTickHandler);
-
-    xTaskCreate( vLEDTask,  "LED0", configMINIMAL_STACK_SIZE, (void *)0, tskIDLE_PRIORITY + 3, NULL );
-    xTaskCreate( vLEDTask, "LED1", configMINIMAL_STACK_SIZE, (void *)1, tskIDLE_PRIORITY + 3, NULL );
-    xTaskCreate( vLEDTask, "LED2", configMINIMAL_STACK_SIZE, (void *)2, tskIDLE_PRIORITY + 3, NULL );
-
-    /* Start the scheduler. */
-    vTaskStartScheduler();
-
+    uart1.begin(115200);
+    PB8.mode(OUTPUT_PP);
+    ret = ds.begin();
+    uart1.printf("%d\n",ret);
+    
 }
 int main(void)
 {
+    float temper;
     setup();
     while(1)
     {
-    }
+        temper = ds.get_temp();
+        uart1.printf("%f\n",temper);
+        delay_ms(1000);
 
-    return 0;
+    }
 
 }
 

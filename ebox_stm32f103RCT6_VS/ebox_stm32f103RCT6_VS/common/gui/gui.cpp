@@ -4,155 +4,377 @@
 //通过该函数转换
 //c:GBR格式的颜色值
 //返回值：RGB格式的颜色值
-u16 LCD_BGR2RGB(u16 c)
-{
-  u16  r,g,b,rgb;   
-  b=(c>>0)&0x1f;
-  g=(c>>5)&0x3f;
-  r=(c>>11)&0x1f;	 
-  rgb=(b<<11)+(g<<5)+(r<<0);		 
-  return(rgb);
+//u16 LCD_BGR2RGB(u16 c)
+//{
+//  u16  r,g,b,rgb;   
+//  b=(c>>0)&0x1f;
+//  g=(c>>5)&0x3f;
+//  r=(c>>11)&0x1f;	 
+//  rgb=(b<<11)+(g<<5)+(r<<0);		 
+//  return(rgb);
 
+//}
+
+//#if !defined(__INT_MAX__) || (__INT_MAX__ > 0xFFFF)
+// #define pgm_read_pointer(addr) ((void *)pgm_read_dword(addr))
+//#else
+// #define pgm_read_pointer(addr) ((void *)pgm_read_word(addr))
+//#endif
+
+#ifndef min
+#define min(a,b) (((a) < (b)) ? (a) : (b))
+#endif
+
+#ifndef _swap_int16_t
+#define _swap_int16_t(a, b) { int16_t t = a; a = b; b = t; }
+#endif
+
+/*********************************************************************
+*
+*       GUI graphic
+*
+**********************************************************************
+*/
+
+void GUI::draw_pixel(int16_t x, int16_t y)
+{
+    dev_draw_pixel(x,y,this->color);
+}
+void GUI::draw_h_line(int16_t x0, int16_t y0, int16_t x1)
+{
+    dev_draw_h_line(x0,y0,x1,this->color);
+}
+void GUI::draw_v_line(int16_t x0, int16_t y0, int16_t y1)
+{
+    dev_draw_v_line(x0,y0,y1,this->color);
+}
+void GUI::draw_line(int16_t x0, int16_t y0, int16_t x1, int16_t y1)
+{
+    dev_draw_line(x0,y0,x1,y1,this->color);
+}
+void GUI::draw_rect(int16_t x0, int16_t y0, int16_t x1, int16_t y1)
+{
+    dev_draw_rect(x0,y0,x1,y1,this->color);
+}    
+void GUI::fill_rect(int16_t x0, int16_t y0, int16_t x1, int16_t y1)
+{
+    dev_fill_fect(x0,y0,x1,y1,this->color);
+}
+void GUI::fill_screen(uint16_t color) 
+{
+    dev_fill_screen(color);
+}
+
+void GUI::draw_circle(int16_t x0, int16_t y0, int16_t r)
+{
+
+    int16_t f = 1 - r;
+    int16_t ddF_x = 1;
+    int16_t ddF_y = -2 * r;
+    int16_t x = 0;
+    int16_t y = r;
+
+    draw_pixel(x0  , y0+r);
+    draw_pixel(x0  , y0-r);
+    draw_pixel(x0+r, y0  );
+    draw_pixel(x0-r, y0  );
+
+    while (x<y) 
+    {
+        if (f >= 0) 
+        {
+            y--;
+            ddF_y += 2;
+            f += ddF_y;
+        }
+        x++;
+        ddF_x += 2;
+        f += ddF_x;
+
+        draw_pixel(x0 + x, y0 + y);
+        draw_pixel(x0 - x, y0 + y);
+        draw_pixel(x0 + x, y0 - y);
+        draw_pixel(x0 - x, y0 - y);
+        draw_pixel(x0 + y, y0 + x);
+        draw_pixel(x0 - y, y0 + x);
+        draw_pixel(x0 + y, y0 - x);
+        draw_pixel(x0 - y, y0 - x);
+    }
+}
+void GUI::draw_circle_helper( int16_t x0, int16_t y0,
+ int16_t r, uint8_t cornername) {
+  int16_t f     = 1 - r;
+  int16_t ddF_x = 1;
+  int16_t ddF_y = -2 * r;
+  int16_t x     = 0;
+  int16_t y     = r;
+
+  while (x<y) {
+    if (f >= 0) {
+      y--;
+      ddF_y += 2;
+      f     += ddF_y;
+    }
+    x++;
+    ddF_x += 2;
+    f     += ddF_x;
+    if (cornername & 0x4) {
+      draw_pixel(x0 + x, y0 + y);
+      draw_pixel(x0 + y, y0 + x);
+    }
+    if (cornername & 0x2) {
+      draw_pixel(x0 + x, y0 - y);
+      draw_pixel(x0 + y, y0 - x);
+    }
+    if (cornername & 0x8) {
+      draw_pixel(x0 - y, y0 + x);
+      draw_pixel(x0 - x, y0 + y);
+    }
+    if (cornername & 0x1) {
+      draw_pixel(x0 - y, y0 - x);
+      draw_pixel(x0 - x, y0 - y);
+    }
+  }
+}
+void GUI::fill_circle(int16_t x0, int16_t y0, int16_t r)
+{
+    draw_v_line(x0, y0-r, y0 + r+1);
+    fill_circle_helper(x0, y0, r, 3, 0);
+}
+// Used to do circles and roundrects
+void GUI::fill_circle_helper(int16_t x0, int16_t y0, int16_t r,
+ uint8_t cornername, int16_t delta) {
+
+  int16_t f     = 1 - r;
+  int16_t ddF_x = 1;
+  int16_t ddF_y = -2 * r;
+  int16_t x     = 0;
+  int16_t y     = r;
+
+  while (x<y) {
+    if (f >= 0) {
+      y--;
+      ddF_y += 2;
+      f     += ddF_y;
+    }
+    x++;
+    ddF_x += 2;
+    f     += ddF_x;
+
+    if (cornername & 0x1) {
+      draw_v_line(x0+x, y0-y, y0 + y+1+delta);
+      draw_v_line(x0+y, y0-x, y0 + x+1+delta);
+    }
+    if (cornername & 0x2) {
+      draw_v_line(x0-x, y0-y, y0 + y+1+delta);
+      draw_v_line(x0-y, y0-x, y0 + x+1+delta);
+    }
+  }
 }
 
 
 
 
-//void Gui_Circle(u16 X,u16 Y,u16 R,u16 fc) 
-//{//Bresenham算法 
-//    unsigned short  a,b; 
-//    int c; 
-//    a=0; 
-//    b=R; 
-//    c=3-2*R; 
-//    while (a<b) 
-//    { 
-//        _SetPixelIndex(X+a,Y+b,fc);     //        7 
-//        _SetPixelIndex(X-a,Y+b,fc);     //        6 
-//        _SetPixelIndex(X+a,Y-b,fc);     //        2 
-//        _SetPixelIndex(X-a,Y-b,fc);     //        3 
-//        _SetPixelIndex(X+b,Y+a,fc);     //        8 
-//        _SetPixelIndex(X-b,Y+a,fc);     //        5 
-//        _SetPixelIndex(X+b,Y-a,fc);     //        1 
-//        _SetPixelIndex(X-b,Y-a,fc);     //        4 
 
-//        if(c<0) c=c+4*a+6; 
-//        else 
-//        { 
-//            c=c+4*(a-b)+10; 
-//            b-=1; 
-//        } 
-//       a+=1; 
-//    } 
-//    if (a==b) 
-//    { 
-//        _SetPixelIndex(X+a,Y+b,fc); 
-//        _SetPixelIndex(X+a,Y+b,fc); 
-//        _SetPixelIndex(X+a,Y-b,fc); 
-//        _SetPixelIndex(X-a,Y-b,fc); 
-//        _SetPixelIndex(X+b,Y+a,fc); 
-//        _SetPixelIndex(X-b,Y+a,fc); 
-//        _SetPixelIndex(X+b,Y-a,fc); 
-//        _SetPixelIndex(X-b,Y-a,fc); 
-//    } 
-//	
-//} 
-////画线函数，使用Bresenham 画线算法
-//void Gui_DrawLine(u16 x0, u16 y0,u16 x1, u16 y1,u16 Color)   
-//{
-//int dx,             // difference in x's
-//    dy,             // difference in y's
-//    dx2,            // dx,dy * 2
-//    dy2, 
-//    x_inc,          // amount in pixel space to move during drawing
-//    y_inc,          // amount in pixel space to move during drawing
-//    error,          // the discriminant i.e. error i.e. decision variable
-//    index;          // used for looping	
+// Draw a rounded rectangle
+void GUI::draw_round_rect(int16_t x, int16_t y, int16_t w,
+ int16_t h, int16_t r) {
+  // smarter version
+  draw_h_line(x+r  , y    , x + w-r + 1); // Top
+  draw_h_line(x+r  , y+h-1, x + w-r + 1); // Bottom
+  draw_v_line(x    , y+r  , y + h-r + 1); // Left
+  draw_v_line(x+w-1, y+r  , y + h-r + 1); // Right
+  // draw four corners
+  draw_circle_helper(x+r    , y+r    , r, 1);
+  draw_circle_helper(x+w-r-1, y+r    , r, 2);
+  draw_circle_helper(x+w-r-1, y+h-r-1, r, 4);
+  draw_circle_helper(x+r    , y+h-r-1, r, 8);
+}
 
+// Fill a rounded rectangle
+void GUI::fill_round_rect(int16_t x, int16_t y, int16_t w,
+ int16_t h, int16_t r) {
+  // smarter version
+  fill_rect(x+r, y, x + w-r + 1, y + h);
 
-//	Lcd_SetXY(x0,y0);
-//	dx = x1-x0;//计算x距离
-//	dy = y1-y0;//计算y距离
+  // draw four corners
+  fill_circle_helper(x+w-r-1, y+r, r, 1, h-2*r-1);
+  fill_circle_helper(x+r    , y+r, r, 2, h-2*r-1);
+}
 
-//	if (dx>=0)
-//	{
-//		x_inc = 1;
-//	}
-//	else
-//	{
-//		x_inc = -1;
-//		dx    = -dx;  
-//	} 
-//	
-//	if (dy>=0)
-//	{
-//		y_inc = 1;
-//	} 
-//	else
-//	{
-//		y_inc = -1;
-//		dy    = -dy; 
-//	} 
+// Draw a triangle
+void GUI::draw_triangle(int16_t x0, int16_t y0,
+ int16_t x1, int16_t y1, int16_t x2, int16_t y2) {
+  draw_line(x0, y0, x1, y1);
+  draw_line(x1, y1, x2, y2);
+  draw_line(x2, y2, x0, y0);
+}
 
-//	dx2 = dx << 1;
-//	dy2 = dy << 1;
+//// Fill a triangle
+void GUI::fill_triangle(int16_t x0, int16_t y0,
+ int16_t x1, int16_t y1, int16_t x2, int16_t y2) {
 
-//	if (dx > dy)//x距离大于y距离，那么每个x轴上只有一个点，每个y轴上有若干个点
-//	{//且线的点数等于x距离，以x轴递增画点
-//		// initialize error term
-//		error = dy2 - dx; 
+  int16_t a, b, y, last;
 
-//		// draw the line
-//		for (index=0; index <= dx; index++)//要画的点数不会超过x距离
-//		{
-//			//画点
-//			_SetPixelIndex(x0,y0,Color);
-//			
-//			// test if error has overflowed
-//			if (error >= 0) //是否需要增加y坐标值
-//			{
-//				error-=dx2;
+  // Sort coordinates by Y order (y2 >= y1 >= y0)
+  if (y0 > y1) {
+    _swap_int16_t(y0, y1); _swap_int16_t(x0, x1);
+  }
+  if (y1 > y2) {
+    _swap_int16_t(y2, y1); _swap_int16_t(x2, x1);
+  }
+  if (y0 > y1) {
+    _swap_int16_t(y0, y1); _swap_int16_t(x0, x1);
+  }
 
-//				// move to next line
-//				y0+=y_inc;//增加y坐标值
-//			} // end if error overflowed
+  if(y0 == y2) { // Handle awkward all-on-same-line case as its own thing
+    a = b = x0;
+    if(x1 < a)      a = x1;
+    else if(x1 > b) b = x1;
+    if(x2 < a)      a = x2;
+    else if(x2 > b) b = x2;
+    draw_h_line(a, y0, b+1);
+    return;
+  }
 
-//			// adjust the error term
-//			error+=dy2;
+  int16_t
+    dx01 = x1 - x0,
+    dy01 = y1 - y0,
+    dx02 = x2 - x0,
+    dy02 = y2 - y0,
+    dx12 = x2 - x1,
+    dy12 = y2 - y1;
+  int32_t
+    sa   = 0,
+    sb   = 0;
 
-//			// move to the next pixel
-//			x0+=x_inc;//x坐标值每次画点后都递增1
-//		} // end for
-//	} // end if |slope| <= 1
-//	else//y轴大于x轴，则每个y轴上只有一个点，x轴若干个点
-//	{//以y轴为递增画点
-//		// initialize error term
-//		error = dx2 - dy; 
+  // For upper part of triangle, find scanline crossings for segments
+  // 0-1 and 0-2.  If y1=y2 (flat-bottomed triangle), the scanline y1
+  // is included here (and second loop will be skipped, avoiding a /0
+  // error there), otherwise scanline y1 is skipped here and handled
+  // in the second loop...which also avoids a /0 error here if y0=y1
+  // (flat-topped triangle).
+  if(y1 == y2) last = y1;   // Include y1 scanline
+  else         last = y1-1; // Skip it
 
-//		// draw the line
-//		for (index=0; index <= dy; index++)
-//		{
-//			// set the pixel
-//			_SetPixelIndex(x0,y0,Color);
+  for(y=y0; y<=last; y++) {
+    a   = x0 + sa / dy01;
+    b   = x0 + sb / dy02;
+    sa += dx01;
+    sb += dx02;
+    /* longhand:
+    a = x0 + (x1 - x0) * (y - y0) / (y1 - y0);
+    b = x0 + (x2 - x0) * (y - y0) / (y2 - y0);
+    */
+    if(a > b) _swap_int16_t(a,b);
+    draw_h_line(a, y, b+1);
+  }
 
-//			// test if error overflowed
-//			if (error >= 0)
-//			{
-//				error-=dy2;
+  // For lower part of triangle, find scanline crossings for segments
+  // 0-2 and 1-2.  This loop is skipped if y1=y2.
+  sa = dx12 * (y - y1);
+  sb = dx02 * (y - y0);
+  for(; y<=y2; y++) {
+    a   = x1 + sa / dy12;
+    b   = x0 + sb / dy02;
+    sa += dx12;
+    sb += dx02;
+    /* longhand:
+    a = x1 + (x2 - x1) * (y - y1) / (y2 - y1);
+    b = x0 + (x2 - x0) * (y - y0) / (y2 - y0);
+    */
+    if(a > b) _swap_int16_t(a,b);
+    draw_h_line(a, y, b+1);
+  }
+}
 
-//				// move to next line
-//				x0+=x_inc;
-//			} // end if error overflowed
+//// Draw a 1-bit image (bitmap) at the specified (x,y) position from the
+//// provided bitmap buffer (must be PROGMEM memory) using the specified
+//// foreground color (unset bits are transparent).
+//void Adafruit_GFX::drawBitmap(int16_t x, int16_t y,
+// const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color) {
 
-//			// adjust the error term
-//			error+=dx2;
+//  int16_t i, j, byteWidth = (w + 7) / 8;
+//  uint8_t byte;
 
-//			// move to the next pixel
-//			y0+=y_inc;
-//		} // end for
-//	} // end else |slope| > 1
+////  for(j=0; j<h; j++) {
+////    for(i=0; i<w; i++) {
+////      if(i & 7) byte <<= 1;
+////      else      byte   = pgm_read_byte(bitmap + j * byteWidth + i / 8);
+////      if(byte & 0x80) drawPixel(x+i, y+j, color);
+////    }
+////  }
 //}
 
+//// Draw a 1-bit image (bitmap) at the specified (x,y) position from the
+//// provided bitmap buffer (must be PROGMEM memory) using the specified
+//// foreground (for set bits) and background (for clear bits) colors.
+//void Adafruit_GFX::drawBitmap(int16_t x, int16_t y,
+// const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg) {
+
+//  int16_t i, j, byteWidth = (w + 7) / 8;
+//  uint8_t byte;
+
+////  for(j=0; j<h; j++) {
+////    for(i=0; i<w; i++ ) {
+////      if(i & 7) byte <<= 1;
+////      else      byte   = pgm_read_byte(bitmap + j * byteWidth + i / 8);
+////      if(byte & 0x80) drawPixel(x+i, y+j, color);
+////      else            drawPixel(x+i, y+j, bg);
+////    }
+////  }
+//}
+
+//// drawBitmap() variant for RAM-resident (not PROGMEM) bitmaps.
+//void Adafruit_GFX::drawBitmap(int16_t x, int16_t y,
+// uint8_t *bitmap, int16_t w, int16_t h, uint16_t color) {
+
+//  int16_t i, j, byteWidth = (w + 7) / 8;
+//  uint8_t byte;
+
+//  for(j=0; j<h; j++) {
+//    for(i=0; i<w; i++ ) {
+//      if(i & 7) byte <<= 1;
+//      else      byte   = bitmap[j * byteWidth + i / 8];
+//      if(byte & 0x80) drawPixel(x+i, y+j, color);
+//    }
+//  }
+//}
+
+//// drawBitmap() variant w/background for RAM-resident (not PROGMEM) bitmaps.
+//void Adafruit_GFX::drawBitmap(int16_t x, int16_t y,
+// uint8_t *bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg) {
+
+//  int16_t i, j, byteWidth = (w + 7) / 8;
+//  uint8_t byte;
+
+//  for(j=0; j<h; j++) {
+//    for(i=0; i<w; i++ ) {
+//      if(i & 7) byte <<= 1;
+//      else      byte   = bitmap[j * byteWidth + i / 8];
+//      if(byte & 0x80) drawPixel(x+i, y+j, color);
+//      else            drawPixel(x+i, y+j, bg);
+//    }
+//  }
+//}
+
+////Draw XBitMap Files (*.xbm), exported from GIMP,
+////Usage: Export from GIMP to *.xbm, rename *.xbm to *.c and open in editor.
+////C Array can be directly used with this function
+//void Adafruit_GFX::drawXBitmap(int16_t x, int16_t y,
+// const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color) {
+
+//  int16_t i, j, byteWidth = (w + 7) / 8;
+//  uint8_t byte;
+
+////  for(j=0; j<h; j++) {
+////    for(i=0; i<w; i++ ) {
+////      if(i & 7) byte >>= 1;
+////      else      byte   = pgm_read_byte(bitmap + j * byteWidth + i / 8);
+////      if(byte & 0x01) drawPixel(x+i, y+j, color);
+////    }
+////  }
+//}
 
 
 //void Gui_box(u16 x, u16 y, u16 w, u16 h,u16 bc)
@@ -186,192 +408,204 @@ u16 LCD_BGR2RGB(u16 c)
 //}
 
 
-///**************************************************************************************
-//功能描述: 在屏幕显示一凸起的按钮框
-//输    入: u16 x1,y1,x2,y2 按钮框左上角和右下角坐标
-//输    出: 无
-//**************************************************************************************/
-//void DisplayButtonDown(u16 x1,u16 y1,u16 x2,u16 y2)
-//{
-//	Gui_DrawLine(x1,  y1,  x2,y1, GRAY2);  //H
-//	Gui_DrawLine(x1+1,y1+1,x2,y1+1, GRAY1);  //H
-//	Gui_DrawLine(x1,  y1,  x1,y2, GRAY2);  //V
-//	Gui_DrawLine(x1+1,y1+1,x1+1,y2, GRAY1);  //V
-//	Gui_DrawLine(x1,  y2,  x2,y2, WHITE);  //H
-//	Gui_DrawLine(x2,  y1,  x2,y2, WHITE);  //V
-//}
+/////**************************************************************************************
+////功能描述: 在屏幕显示一凸起的按钮框
+////输    入: u16 x1,y1,x2,y2 按钮框左上角和右下角坐标
+////输    出: 无
+////**************************************************************************************/
+////void DisplayButtonDown(u16 x1,u16 y1,u16 x2,u16 y2)
+////{
+////	Gui_DrawLine(x1,  y1,  x2,y1, GRAY2);  //H
+////	Gui_DrawLine(x1+1,y1+1,x2,y1+1, GRAY1);  //H
+////	Gui_DrawLine(x1,  y1,  x1,y2, GRAY2);  //V
+////	Gui_DrawLine(x1+1,y1+1,x1+1,y2, GRAY1);  //V
+////	Gui_DrawLine(x1,  y2,  x2,y2, WHITE);  //H
+////	Gui_DrawLine(x2,  y1,  x2,y2, WHITE);  //V
+////}
 
-///**************************************************************************************
-//功能描述: 在屏幕显示一凹下的按钮框
-//输    入: u16 x1,y1,x2,y2 按钮框左上角和右下角坐标
-//输    出: 无
-//**************************************************************************************/
-//void DisplayButtonUp(u16 x1,u16 y1,u16 x2,u16 y2)
-//{
-//	Gui_DrawLine(x1,  y1,  x2,y1, WHITE); //H
-//	Gui_DrawLine(x1,  y1,  x1,y2, WHITE); //V
-//	
-//	Gui_DrawLine(x1+1,y2-1,x2,y2-1, GRAY1);  //H
-//	Gui_DrawLine(x1,  y2,  x2,y2, GRAY2);  //H
-//	Gui_DrawLine(x2-1,y1+1,x2-1,y2, GRAY1);  //V
-//    Gui_DrawLine(x2  ,y1  ,x2,y2, GRAY2); //V
-//}
+/////**************************************************************************************
+////功能描述: 在屏幕显示一凹下的按钮框
+////输    入: u16 x1,y1,x2,y2 按钮框左上角和右下角坐标
+////输    出: 无
+////**************************************************************************************/
+////void DisplayButtonUp(u16 x1,u16 y1,u16 x2,u16 y2)
+////{
+////	Gui_DrawLine(x1,  y1,  x2,y1, WHITE); //H
+////	Gui_DrawLine(x1,  y1,  x1,y2, WHITE); //V
+////	
+////	Gui_DrawLine(x1+1,y2-1,x2,y2-1, GRAY1);  //H
+////	Gui_DrawLine(x1,  y2,  x2,y2, GRAY2);  //H
+////	Gui_DrawLine(x2-1,y1+1,x2-1,y2, GRAY1);  //V
+////    Gui_DrawLine(x2  ,y1  ,x2,y2, GRAY2); //V
+////}
+/*********************************************************************
+*
+*       GUI text
+*
+**********************************************************************
+*/
+void GUI::set_font(const GUI_FONT *font)
+{
+    this->current_font = (GUI_FONT *)font;
+
+}
+void GUI::set_text_style(uint8_t style)
+{
+    this->text_style = style;
+}
+void GUI::set_text_mode(uint8_t mode)
+{   
+    draw_mode = mode;
+}
+////解码//////////////////////////////
+void GUI::char_index_of_font(uint16_t code,const GUI_FONT_PROP **font_list,uint16_t *index)
+{
+    uint16_t tmp;
+    uint16_t count;
+    const GUI_FONT_PROP *pList;
+    pList = current_font->list;
+    
+    while(pList != NULL)
+    {
+        if(code >= pList->First && code <= pList->Last)
+        {
+            *font_list = pList;
+            *index = code - pList->First;
+            break;
+        }
+        else
+        {
+            *font_list = current_font->list;
+            *index = 0; 
+            pList=pList->pNext;
+        }
+    }
 
 
-//void Gui_DrawFont_GBK16(u16 x, u16 y, u16 fc, u16 bc, u8 *s)
-//{
-//	unsigned char i,j;
-//	unsigned short k,x0;
-//	x0=x;
+}
 
-//	while(*s) 
-//	{	
-//		if((*s) < 128) 
-//		{
-//			k=*s;
-//			if (k==13) 
-//			{
-//				x=x0;
-//				y+=16;
-//			}
-//			else 
-//			{
-//				if (k>32) k-=32; else k=0;
-//	
-//			    for(i=0;i<16;i++)
-//				for(j=0;j<8;j++) 
-//					{
-//				    	if(asc16[k*16+i]&(0x80>>j))	_SetPixelIndex(x+j,y+i,fc);
-//						else 
-//						{
-//							if (fc!=bc) _SetPixelIndex(x+j,y+i,bc);
-//						}
-//					}
-//				x+=8;
-//			}
-//			s++;
-//		}
-//			
-//		else 
-//		{
-//		
+void GUI::disp_index(const GUI_FONT_PROP *font_list,uint16_t index)
+{
+	uint32_t count, row ,col, mask;
+	uint8_t tmp;
+    const GUI_CHARINFO *pCharInfo;
+    uint8_t byte_per_line;
+    if((font_list == NULL) || (index > (font_list->Last - font_list->First + 1)))return;
+    pCharInfo = &font_list->paCharInfo[index];
+    byte_per_line = pCharInfo->BytesPerLine;
+    
+	for(row = 0; row < current_font->YSize; row++){   
+        for( count = 0; count < byte_per_line; count++){
+            tmp = pCharInfo->pData[byte_per_line * row + count];
+            for(mask = 0x80, col = 0; col < 8 ; mask >>= 1, col++){	
+                switch(draw_mode)
+                {
+                    case LCD_DRAWMODE_NORMAL:
+                        if(mask & tmp)
+                            draw_pixel(cursor_x,cursor_y);
+                        else
+                            dev_draw_pixel(cursor_x,cursor_y,back_color);
+                        break;
+                    case LCD_DRAWMODE_XOR:
+                        if(mask & tmp)
+                            draw_pixel(cursor_x,cursor_y);
+                        break;
+                    case LCD_DRAWMODE_TRANS:
+                        if(mask & tmp)
+                            draw_pixel(cursor_x,cursor_y);
+                        break;
+                    case LCD_DRAWMODE_REV:
+                        if(mask & tmp)
+                            dev_draw_pixel(cursor_x,cursor_y,back_color);
+                        else
+                            draw_pixel(cursor_x,cursor_y);
+                        break;
 
-//			for (k=0;k<hz16_num;k++) 
-//			{
-//			  if ((hz16[k].Index[0]==*(s))&&(hz16[k].Index[1]==*(s+1)))
-//			  { 
-//				    for(i=0;i<16;i++)
-//				    {
-//						for(j=0;j<8;j++) 
-//							{
-//						    	if(hz16[k].Msk[i*2]&(0x80>>j))	_SetPixelIndex(x+j,y+i,fc);
-//								else {
-//									if (fc!=bc) _SetPixelIndex(x+j,y+i,bc);
-//								}
-//							}
-//						for(j=0;j<8;j++) 
-//							{
-//						    	if(hz16[k].Msk[i*2+1]&(0x80>>j))	_SetPixelIndex(x+j+8,y+i,fc);
-//								else 
-//								{
-//									if (fc!=bc) _SetPixelIndex(x+j+8,y+i,bc);
-//								}
-//							}
-//				    }
-//				}
-//			  }
-//			s+=2;x+=16;
-//		} 
-//		
-//	}
-//}
+                }
+                cursor_x++;
+            }
+        }
+            cursor_x-=byte_per_line * 8;
+            cursor_y++;
+    }
+    cursor_y-=current_font->YDist;
+    cursor_x+=pCharInfo->XSize;
+}
 
-//void Gui_DrawFont_GBK24(u16 x, u16 y, u16 fc, u16 bc, u8 *s)
-//{
-//	unsigned char i,j;
-//	unsigned short k;
+void GUI::disp_char(uint16_t ch)
+{
+    const GUI_FONT_PROP *font_list;
+    uint16_t index;
+    char_index_of_font(ch,&font_list,&index);
+    disp_index(font_list,index);
+}
+void GUI::disp_char_at(uint16_t ch,uint16_t x,uint16_t y)
+{
+    set_cursor(x,y);
+    disp_char(ch);
+}
+void GUI::disp_chars(uint16_t ch,uint16_t count)
+{
+    while(count--)
+        disp_char(ch);
+}
+void GUI::disp_string(const char *str)
+{
+    uint16_t ch = 0;
+    while(*str)
+    {
+        if(*str < 0x7e)//是字母
+            disp_char(*str++);
+        else//汉字
+        {            
+            ch = (*str++)<<8;
+            ch += *str++;
+            disp_char(ch);        
+        }
+    }
+}
+void GUI::disp_string_at(const char *str,uint16_t x,uint16_t y)
+{
+    set_cursor(x,y);
+    disp_string(str);
+}
 
-//	while(*s) 
-//	{
-//		if( *s < 0x80 ) 
-//		{
-//			k=*s;
-//			if (k>32) k-=32; else k=0;
 
-//		    for(i=0;i<16;i++)
-//			for(j=0;j<8;j++) 
-//				{
-//			    	if(asc16[k*16+i]&(0x80>>j))	
-//					_SetPixelIndex(x+j,y+i,fc);
-//					else 
-//					{
-//						if (fc!=bc) _SetPixelIndex(x+j,y+i,bc);
-//					}
-//				}
-//			s++;x+=8;
-//		}
-//		else 
-//		{
+/*********************************************************************
+*
+*       GUI settings
+*
+**********************************************************************
+*/
 
-//			for (k=0;k<hz24_num;k++) 
-//			{
-//			  if ((hz24[k].Index[0]==*(s))&&(hz24[k].Index[1]==*(s+1)))
-//			  { 
-//				    for(i=0;i<24;i++)
-//				    {
-//						for(j=0;j<8;j++) 
-//							{
-//						    	if(hz24[k].Msk[i*3]&(0x80>>j))
-//								_SetPixelIndex(x+j,y+i,fc);
-//								else 
-//								{
-//									if (fc!=bc) _SetPixelIndex(x+j,y+i,bc);
-//								}
-//							}
-//						for(j=0;j<8;j++) 
-//							{
-//						    	if(hz24[k].Msk[i*3+1]&(0x80>>j))	_SetPixelIndex(x+j+8,y+i,fc);
-//								else {
-//									if (fc!=bc) _SetPixelIndex(x+j+8,y+i,bc);
-//								}
-//							}
-//						for(j=0;j<8;j++) 
-//							{
-//						    	if(hz24[k].Msk[i*3+2]&(0x80>>j))	
-//								_SetPixelIndex(x+j+16,y+i,fc);
-//								else 
-//								{
-//									if (fc!=bc) _SetPixelIndex(x+j+16,y+i,bc);
-//								}
-//							}
-//				    }
-//			  }
-//			}
-//			s+=2;x+=24;
-//		}
-//	}
-//}
-//void Gui_DrawFont_Num32(u16 x, u16 y, u16 fc, u16 bc, u16 num)
-//{
-//	unsigned char i,j,k,c;
-//	//lcd_text_any(x+94+i*42,y+34,32,32,0x7E8,0x0,sz32,knum[i]);
-////	w=w/8;
 
-//    for(i=0;i<32;i++)
-//	{
-//		for(j=0;j<4;j++) 
-//		{
-//			c=*(sz32+num*32*4+i*4+j);
-//			for (k=0;k<8;k++)	
-//			{
-//	
-//		    	if(c&(0x80>>k))	_SetPixelIndex(x+j*8+k,y+i,fc);
-//				else {
-//					if (fc!=bc) _SetPixelIndex(x+j*8+k,y+i,bc);
-//				}
-//			}
-//		}
-//	}
-//}
 
+void GUI::set_color(uint32_t color)
+{
+    this->color = color;
+}
+void GUI::set_back_color(uint32_t back_color)
+{
+    this->back_color = back_color;
+}
+
+void GUI::set_cursor(uint16_t x,uint16_t y)
+{
+    this->cursor_x = x;
+    this->cursor_y = y;
+}
+void GUI::set_draw_mode(uint8_t mode)
+{   
+    draw_mode = mode;
+}
+
+
+int16_t GUI::height()
+{
+    return _height;
+}
+int16_t GUI::width()
+{
+    return _width;
+}
 
