@@ -66,76 +66,64 @@
       <EnableAsyncExecutionMode>false</EnableAsyncExecutionMode>
       <EnableNonStopMode>false</EnableNonStopMode>
     </AdditionalGDBSettings>
-    <DebugMethodID>com.sysprogs.arm.openocd</DebugMethodID>
+    <DebugMethodID>jlink-jtag</DebugMethodID>
     <DebugMethodProperties>
       <Entries>
         <KeyValue>
-          <Key>com.sysprogs.arm.openocd.interface</Key>
-          <Value>interface/stlink-v2.cfg</Value>
+          <Key>com.sysprogs.jlink.root</Key>
+          <Value>C:\Program Files (x86)\SEGGER\JLink_V490</Value>
         </KeyValue>
         <KeyValue>
-          <Key>com.sysprogs.arm.openocd.cpu</Key>
+          <Key>com.sysprogs.jlink.connection</Key>
+          <Value>USB</Value>
+        </KeyValue>
+        <KeyValue>
+          <Key>com.sysprogs.jlink.targetdevice</Key>
+          <Value>STM32F103RC</Value>
+        </KeyValue>
+        <KeyValue>
+          <Key>com.sysprogs.jlink.targetinterface</Key>
+          <Value>SWD</Value>
+        </KeyValue>
+        <KeyValue>
+          <Key>com.sysprogs.jlink.speed</Key>
+          <Value>auto</Value>
+        </KeyValue>
+        <KeyValue>
+          <Key>com.sysprogs.jlink.resetcommand</Key>
+          <Value>mon reset</Value>
+        </KeyValue>
+        <KeyValue>
+          <Key>com.sysprogs.jlink.resetafterload</Key>
           <Value />
         </KeyValue>
         <KeyValue>
-          <Key>com.sysprogs.arm.openocd.chip</Key>
-          <Value />
+          <Key>com.sysprogs.jlink.livememoryengine</Key>
+          <Value>stub</Value>
         </KeyValue>
         <KeyValue>
-          <Key>com.sysprogs.arm.openocd.board</Key>
-          <Value />
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.target</Key>
-          <Value>target/stm32f1x.cfg</Value>
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.extraargs</Key>
-          <Value>-c init -c "reset init"</Value>
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.initargs</Key>
-          <Value />
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.commands.halt</Key>
-          <Value>mon halt</Value>
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.commands.program</Key>
+          <Key>com.sysprogs.jlink.program</Key>
           <Value>load</Value>
         </KeyValue>
         <KeyValue>
-          <Key>com.sysprogs.arm.openocd.commands.autoprogram</Key>
+          <Key>com.sysprogs.jlink.autoprogram</Key>
           <Value />
         </KeyValue>
         <KeyValue>
-          <Key>com.sysprogs.arm.openocd.commands.reset</Key>
-          <Value>mon reset init</Value>
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.commands.resetafter</Key>
+          <Key>com.sysprogs.jlink.commands.beforeconnect</Key>
           <Value />
         </KeyValue>
         <KeyValue>
-          <Key>com.sysprogs.arm.openocd.quicksetup.enabled</Key>
+          <Key>com.sysprogs.jlink.commands.beforeload</Key>
+          <Value />
+        </KeyValue>
+        <KeyValue>
+          <Key>com.sysprogs.jlink.commands.afterload</Key>
+          <Value />
+        </KeyValue>
+        <KeyValue>
+          <Key>SYS:DESIGN_MODE</Key>
           <Value>1</Value>
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.delay</Key>
-          <Value>0</Value>
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.transport</Key>
-          <Value />
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.quicksetup.interface</Key>
-          <Value>stlink-v2</Value>
-        </KeyValue>
-        <KeyValue>
-          <Key>com.sysprogs.arm.openocd.quicksetup.target</Key>
-          <Value>STM32F1</Value>
         </KeyValue>
       </Entries>
     </DebugMethodProperties>
