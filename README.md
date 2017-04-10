@@ -68,5 +68,5 @@ vs工程和移植注意事项在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox
     - w5500：全硬件TCP/IP嵌入式以太网控制器
 ### RTC（实时时钟）
 - ds3231：i2c
-### 未知用途
+### 正交编码器
 - encoder
