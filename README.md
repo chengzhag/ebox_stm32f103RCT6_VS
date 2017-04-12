@@ -1,7 +1,9 @@
 # ebox_stm32f103RCT6_VS
 为stm32f103RCT6配置好的ebox，visual studio项目，方便以后使用
 
-vs工程和移植注意事项在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文件夹下
+vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文件夹下
+
+***工程使用stm32hd的startup文件，更改型号时注意更换该文件***
 
 ## 包含驱动
 ### 逻辑器件
