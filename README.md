@@ -73,7 +73,7 @@ vs工程和移植注意事项在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox
 - encoder_exti：旋转正交编码器。基于外部中断
 
 ## 如何将工程搬移到visualGDB上？
-> https://visualgdb.com/tutorials/arm/keil/
+> 参考[官方教程](https://visualgdb.com/tutorials/arm/keil/)
 
 ### 导入keil工程目录
 1. 文件扩展名必须小写
@@ -111,3 +111,18 @@ $(BINARYDIR)/$(TARGETNAME): $(all_objs) $(EXTERNAL_LIBS)
 endif
 ```
 1. makefile,.mak文件中使用```\```进行换行时，后面不能有包括空格在内的任何字符
+
+## visualGDB使用教程
+
+> - [官方教程目录](https://visualgdb.com/w/tutorials/category/tutorials/)
+> - [官网功能介绍](https://visualgdb.com/?features=embedded)
+
+- [开发STM32官方教程](https://visualgdb.com/tutorials/arm/stm32/)
+- [如何建立模板？](https://visualgdb.com/tutorials/arm/templates/)
+- [优化FreeRTOS的实时性](https://visualgdb.com/tutorials/profiler/realtime/freertos/)
+- [freeRTOS进程同步](https://visualgdb.com/tutorials/freertos/mutexes/)
+- 性能分析工具[embedded-profiler](https://visualgdb.com/w/tutorials/category/tutorials/profiler/embedded-profiler/)
+    - [Precise embedded profiling with VisualGDB](https://visualgdb.com/tutorials/profiler/realtime/usb/)
+    - [Adding support for more platforms to the Embedded Profiler](https://visualgdb.com/tutorials/profiler/embedded/sampling/driver/)
+    - [Profiling a basic STM32 application with Visual Studio](https://visualgdb.com/tutorials/profiler/embedded/sampling/)
+- 外围设备[Peripherals](https://visualgdb.com/w/tutorials/category/tutorials/embedded/stm32_periph/)
