@@ -74,6 +74,46 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
 - encoder
 - encoder_exti：旋转正交编码器。基于外部中断
 
+## 如何配置开发环境？
+
+> 以下所有程序均安装在默认位置
+
+### 安装Jlink驱动
+
+### 安装keil5并破解
+
+1. 安装stm32的pack和CMSIS
+
+### 安装visual studio 2015
+
+1. 选择自定义
+1. 包含visual c++
+
+### 安装VassistX
+
+1. 破解目录C:\Users\用户名\AppData\Local\Microsoft\VisualStudio\14.0
+1. 复制dll文件覆盖
+
+### 安装VisualGDB
+
+1. 安装visualGDB-5.1r6，Quick Install
+2. 打开一次visualstudio
+3. 双击reg添加注册表
+4. 复制activation.key到C:\Users\用户名\AppData\Local\VisualGDB
+5. 复制VisualGDB.exe文件到C:\Program Files (x86)\Sysprogs\VisualGDB
+
+### 打开VS，弹出VisualGDB初始设置
+
+1. 默认打开clang intellisense
+2. 提示检测到visual assist X，选择用
+
+### 打开工程编译成功，但有波浪线？intellisense没有正常工作？
+
+1. 最后发现全新安装的keil5在C:\Keil_v5\ARM下缺少CMSIS文件夹，该文件夹下的文件在工程中被包含了
+1. CMSIS文件夹怎么获取？下载安装Cortex Microcontroller Software Interface Standard（CMSIS）包，（最新为5.0.1版），并安装
+1. keil本身自带CMSIS，但是在C:\Keil_v5\ARM\Pack\ARM\CMSIS\<VERSION>\CMSIS\Include文件夹下，因此在工程的include设置中添加此路径可以解决这个问题
+1. keil的CMSIS路径带有版本号，不同版本其路径不同，为了适应不同的开发环境，建议将CMSIS文件夹统一复制到C:\Keil_v5\ARM文件夹下，这样就能杜绝后患
+
 ## 如何将工程搬移到visualGDB上？
 > 参考[官方教程](https://visualgdb.com/tutorials/arm/keil/)
 
