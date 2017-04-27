@@ -1,9 +1,9 @@
 # ebox_stm32f103RCT6_VS
-为stm32f103RCT6配置好的ebox，visual studio项目，方便以后使用
+为stm32f103C8T6配置好的ebox，visual studio项目，方便以后使用
 
 vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文件夹下
 
-***工程使用stm32hd的startup文件，更改型号时注意更换该文件***
+***工程使用stm32md的startup文件，更改型号时注意更换该文件***
 
 ## 包含驱动
 ### 逻辑器件
@@ -73,6 +73,9 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
 ### 正交编码器
 - encoder
 - encoder_exti：旋转正交编码器。基于外部中断
+- encoder_timer:用官方库配置定时器实现的正交编码器，AB相上下沿触发
+- encoder_motor:用encoder_timer实现的直流有刷编码器电，三种控制方式，PID位置、速度控制和无控制
+
 
 ## 如何配置开发环境？
 
