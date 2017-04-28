@@ -73,8 +73,12 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
 ### 正交编码器
 - encoder
 - encoder_exti：旋转正交编码器。基于外部中断
-- encoder_timer:用官方库配置定时器实现的正交编码器，AB相上下沿触发
-- encoder_motor:用encoder_timer实现的直流有刷编码器电，三种控制方式，PID位置、速度控制和无控制
+- encoder_timer：用官方库配置定时器实现的正交编码器，AB相上下沿触发
+- encoder_motor：用encoder_timer实现的直流有刷编码器电，三种控制方式，PID位置、速度控制和无控制
+### 电机
+- tb6612fng：有刷电机双向驱动
+### 控制
+- PID：绝对式PID
 
 
 ## 如何配置开发环境？
