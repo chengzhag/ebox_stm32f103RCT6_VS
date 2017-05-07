@@ -68,6 +68,8 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
     - si4432：低于1GHz频段的无线数传芯片
 - 以太网
     - w5500：全硬件TCP/IP嵌入式以太网控制器
+- 串口
+    - uart_string：具备字符串buffer的uart类，基于Uart
 ### RTC（实时时钟）
 - ds3231：i2c
 ### 正交编码器
@@ -79,6 +81,27 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
 - tb6612fng：有刷电机双向驱动
 ### 控制
 - PID：绝对式PID
+
+## utility(有用的东西)
+
+### 信号处理
+- signal_stream：用circle buffer实现的试试信号处理类，仅做信号存储，通过继承或实例化实现信号处理函数
+
+### 存储
+- ringbuf：队列，先声明buf数组，传入buf指针使用
+- heap：实现malloc函数
+- list：链表
+- WString：字符串类
+
+### 时间
+- calendar：日历
+
+### 显示
+- color_convert：hsv、rgb等色彩空间转换
+
+### 通信
+- crc：crc循环校验
+
 
 
 ## 如何配置开发环境？
