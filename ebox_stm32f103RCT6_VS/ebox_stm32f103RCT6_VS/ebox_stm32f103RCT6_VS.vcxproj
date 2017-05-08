@@ -113,6 +113,7 @@
     <ClCompile Include="common\edriver\si4432.cpp" />
     <ClCompile Include="common\edriver\tb6612fng.cpp" />
     <ClCompile Include="common\edriver\TM1638.cpp" />
+    <ClCompile Include="common\edriver\uart_string.cpp" />
     <ClCompile Include="common\edriver\ultrasonic_wave.cpp" />
     <ClCompile Include="common\edriver\w25x16.cpp" />
     <ClCompile Include="common\edriver\w5500.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="common\edriver\si4432.h" />
     <ClInclude Include="common\edriver\tb6612fng.h" />
     <ClInclude Include="common\edriver\TM1638.h" />
+    <ClInclude Include="common\edriver\uart_string.h" />
     <ClInclude Include="common\edriver\ultrasonic_wave.h" />
     <ClInclude Include="common\edriver\w25x16.h" />
     <ClInclude Include="common\edriver\w5500.h" />
@@ -314,6 +316,7 @@
     <ClInclude Include="common\util\print.h" />
     <ClInclude Include="common\util\printable.h" />
     <ClInclude Include="common\util\ringbuf.h" />
+    <ClInclude Include="common\util\signal_stream.h" />
     <ClInclude Include="common\util\util.h" />
     <ClInclude Include="common\util\WString.h" />
     <ClInclude Include="example\23.usb_device\USB_msd_sd\usb_msd_sd.h" />

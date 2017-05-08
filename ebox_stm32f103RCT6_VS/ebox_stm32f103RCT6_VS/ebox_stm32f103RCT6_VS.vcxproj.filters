@@ -662,6 +662,9 @@
     <ClCompile Include="common\edriver\tb6612fng.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
+    <ClCompile Include="common\edriver\uart_string.cpp">
+      <Filter>Source files\common\edriver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\bigiot\bigiot.h">
@@ -1254,6 +1257,12 @@
     </ClInclude>
     <ClInclude Include="common\edriver\tb6612fng.h">
       <Filter>Header files\common\edriver</Filter>
+    </ClInclude>
+    <ClInclude Include="common\edriver\uart_string.h">
+      <Filter>Header files\common\edriver</Filter>
+    </ClInclude>
+    <ClInclude Include="common\util\signal_stream.h">
+      <Filter>Source files\common\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
