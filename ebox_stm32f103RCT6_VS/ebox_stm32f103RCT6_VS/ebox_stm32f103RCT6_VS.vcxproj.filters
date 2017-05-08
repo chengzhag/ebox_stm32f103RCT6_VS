@@ -665,6 +665,9 @@
     <ClCompile Include="common\edriver\uart_string.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
+    <ClCompile Include="common\edriver\ultrasonic_wave_uart.cpp">
+      <Filter>Source files\common\edriver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\bigiot\bigiot.h">
@@ -1263,6 +1266,9 @@
     </ClInclude>
     <ClInclude Include="common\util\signal_stream.h">
       <Filter>Source files\common\util</Filter>
+    </ClInclude>
+    <ClInclude Include="common\edriver\ultrasonic_wave_uart.h">
+      <Filter>Header files\common\edriver</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
