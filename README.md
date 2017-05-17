@@ -1,5 +1,9 @@
 # ebox_stm32f103RCT6_VS
-为stm32f103C8T6配置好的ebox，visual studio项目，方便以后使用
+注意！！更换为stm32f103C8T6配置好的ebox，visual studio项目，方便以后使用
+如果要设置为其他型号：
+1. 更换startup文件
+1. 更改编译器define
+1. 更改debug目标型号
 
 vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文件夹下
 
