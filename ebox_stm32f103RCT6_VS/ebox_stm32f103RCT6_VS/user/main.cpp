@@ -12,27 +12,18 @@
  */
 
 #include "ebox.h"
-#include "ds18b20.h"
-Ds18b20 ds(&PA0);
+
 void setup()
 {
-    int ret;
     ebox_init();
     uart1.begin(115200);
-    PB8.mode(OUTPUT_PP);
-    ret = ds.begin();
-
-    uart1.printf("%d\n",ret);
-    
 }
 int main(void)
 {
-    float temper;
     setup();
     while(1)
     {
-        temper = ds.get_temp();
-        uart1.printf("%f\n",temper);
+        uart1.printf("ok\n");
         delay_ms(1000);
 
     }
