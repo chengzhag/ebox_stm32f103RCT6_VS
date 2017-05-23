@@ -5,7 +5,7 @@
 
 //#define __UART_NUM_DEBUG
 
-template<typename NumType = float, int numBufSize = 3, int sizeOfNum = sizeof(NumType)>
+template<typename NumType = float, int numBufSize = 3>
 class UartNum
 {
 	Uart *uart;
@@ -13,8 +13,12 @@ class UartNum
 	union Char2num
 	{
 		NumType f;
-		unsigned char c[sizeOfNum];
+		unsigned char c[sizeof(NumType)];
 	}char2num;
+
+	float numBuf[numBufSize];//用于存储接收的数据
+
+	int recievedLength;
 
 	int charBufIndex;//接收数据位的index
 	int numBufIndex;//接收数字的index
@@ -82,7 +86,7 @@ class UartNum
 		}
 
 		//判断已接收数据位个数，如果单个数据接收完毕，存储数据
-		if (charBufIndex >= sizeOfNum)
+		if (charBufIndex >= sizeof(NumType))
 		{
 			if (numBufIndex < numBufSize)
 			{
@@ -93,9 +97,6 @@ class UartNum
 		}
 	}
 
-	float numBuf[numBufSize];//用于存储接收的数据
-
-	int recievedLength;
 public:
 
 	//构建基于uartX的UartNum类
@@ -133,13 +134,13 @@ public:
 	{
 		union Num2Char {
 			float num;
-			unsigned char c[sizeOfNum];
+			unsigned char c[sizeof(NumType)];
 		}num2char;
 		int i = 0, j = 0, k = 0;
 		for (i = 0; i < length; i++)
 		{
 			num2char.num = num[i];
-			for (j = 0; j < sizeOfNum; j++)
+			for (j = 0; j < sizeof(NumType); j++)
 			{
 				if (num2char.c[j] == '\n' || num2char.c[j] == '\\')
 				{

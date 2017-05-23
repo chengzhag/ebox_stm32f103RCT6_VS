@@ -12,6 +12,7 @@
  */
 
 #include "ebox.h"
+#include "uart_num.h"
 
 void setup()
 {

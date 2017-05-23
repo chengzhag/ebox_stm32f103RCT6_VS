@@ -74,6 +74,7 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
     - w5500：全硬件TCP/IP嵌入式以太网控制器
 - 串口
     - uart_string：具备字符串buffer的uart类，基于Uart
+    - uart_num：用于在两片单片机之间通过串口传输数据
 ### RTC（实时时钟）
 - ds3231：i2c
 ### 正交编码器

@@ -1264,11 +1264,14 @@
     <ClInclude Include="common\edriver\uart_string.h">
       <Filter>Header files\common\edriver</Filter>
     </ClInclude>
-    <ClInclude Include="common\util\signal_stream.h">
-      <Filter>Source files\common\util</Filter>
-    </ClInclude>
     <ClInclude Include="common\edriver\ultrasonic_wave_uart.h">
       <Filter>Header files\common\edriver</Filter>
+    </ClInclude>
+    <ClInclude Include="common\edriver\uart_num.h">
+      <Filter>Header files\common\edriver</Filter>
+    </ClInclude>
+    <ClInclude Include="common\util\signal_stream.h">
+      <Filter>Header files\common\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
