@@ -9,9 +9,6 @@ class UartString
 	Uart *uart;
 	uint16_t bufferIndex;
 	char buffer[UART_STRING_BUFFER_SIZE];
-	//尝试使用new动态分配内存
-	//char *buffer;
-	//uint16_t bufferSize;
 
 	//串口收到字节中断处理函数
 	void rxEvent();

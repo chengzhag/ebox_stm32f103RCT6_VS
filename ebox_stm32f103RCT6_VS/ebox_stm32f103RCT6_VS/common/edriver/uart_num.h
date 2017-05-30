@@ -100,7 +100,7 @@ class UartNum
 public:
 
 	//构建基于uartX的UartNum类
-	UartNum::UartNum(Uart *uartX) :
+	UartNum(Uart *uartX) :
 		uart(uartX),
 		isTrans(false),
 		charBufIndex(0),
