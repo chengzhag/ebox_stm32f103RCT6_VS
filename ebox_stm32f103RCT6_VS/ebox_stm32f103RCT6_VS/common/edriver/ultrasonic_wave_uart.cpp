@@ -4,7 +4,8 @@ UltrasonicWaveUart::UltrasonicWaveUart(Uart *uartX) :
 	uart(uartX),
 	dis(0),
 	isHigh(true),
-	isReady(false)
+	isReady(false),
+	hasEvent(false)
 {
 
 }
@@ -29,6 +30,10 @@ void UltrasonicWaveUart::rxEvent()
 		uint8_t c = uart->read();
 		dis = dis + c;
 		isReady = true;
+		if (hasEvent)
+		{
+			dataRecieveEvent.call(dis);
+		}
 	}
 }
 
@@ -39,6 +44,12 @@ uint16_t UltrasonicWaveUart::read()
 	}
 	isReady = false;
 	return dis;
+}
+
+void UltrasonicWaveUart::attach(void(*dataRecieveEvent)(uint16_t))
+{
+	this->dataRecieveEvent.attach(dataRecieveEvent);
+	hasEvent = true;
 }
 
 void UltrasonicWaveUart::trig()
