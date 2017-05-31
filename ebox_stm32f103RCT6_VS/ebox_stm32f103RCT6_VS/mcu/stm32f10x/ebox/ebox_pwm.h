@@ -66,7 +66,7 @@ public:
     uint32_t get_max_frq();
     float    get_accuracy();
 
-private:
+protected:
     Gpio        *pwm_pin;
     TIM_TypeDef *TIMx;
     uint32_t    rcc;

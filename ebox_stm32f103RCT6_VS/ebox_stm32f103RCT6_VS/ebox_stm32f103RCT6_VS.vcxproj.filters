@@ -668,6 +668,15 @@
     <ClCompile Include="common\edriver\ultrasonic_wave_uart.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
+    <ClCompile Include="common\edriver\accurate_pwm.cpp">
+      <Filter>Source files\common\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\servo.cpp">
+      <Filter>Source files\common\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\my_math.cpp">
+      <Filter>Source files\common\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\bigiot\bigiot.h">
@@ -1271,6 +1280,15 @@
       <Filter>Header files\common\edriver</Filter>
     </ClInclude>
     <ClInclude Include="common\util\signal_stream.h">
+      <Filter>Header files\common\util</Filter>
+    </ClInclude>
+    <ClInclude Include="common\edriver\accurate_pwm.h">
+      <Filter>Header files\common\edriver</Filter>
+    </ClInclude>
+    <ClInclude Include="common\edriver\servo.h">
+      <Filter>Header files\common\edriver</Filter>
+    </ClInclude>
+    <ClInclude Include="common\util\my_math.h">
       <Filter>Header files\common\util</Filter>
     </ClInclude>
   </ItemGroup>
