@@ -46,6 +46,7 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
     - Max7456：单通道、单色随屏显示（OSD）发生器，内置EEPROM
 - GPIO
     - parallel_gpio：8位并行输出，可以组合任意端口
+- uart_vcan：配合山外多功能调试助手的串口发送类
 ### 传感器
 - 湿度传感器
     - dht11
@@ -65,6 +66,7 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
     - LTC1446：12位逐次逼近式工作的A/D转换器
 - 距离传感器
     - ultrasonic_wave：超声波
+    - ultrasonic_wave_uart：超声波，基于串口，带有中断绑定功能
 ### 传输
 - 2.4G无线
     - NRF24L01
@@ -84,8 +86,11 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
 - encoder_motor：用encoder_timer实现的直流有刷编码器电，三种控制方式，PID位置、速度控制和无控制
 ### 电机
 - tb6612fng：有刷电机双向驱动
+- servo：舵机
+- AccuratePwm:Pwm：继承自ebox Pwm的精确占空比Pwm类
 ### 控制
-- PID：绝对式PID
+- greg::PID：绝对式PID
+- sky::PID：积分分离式绝对PID
 
 ## utility(有用的东西)
 
