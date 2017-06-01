@@ -13,7 +13,7 @@ public:
 	UartVscan(Uart *uartX);
 	//初始化
 	void begin(uint32_t baud_rate, uint8_t data_bit, uint8_t parity, float stop_bit, uint8_t _use_dma);
-	void begin(uint32_t baud_rate, uint8_t _use_dma /*= 1*/);
+	void begin(uint32_t baud_rate, uint8_t _use_dma = 1);
 
 	//发送灰度图像
 	void sendGreyImage(uint8_t* imgaddr, uint32_t width,uint32_t height);

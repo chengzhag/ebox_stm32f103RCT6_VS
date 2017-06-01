@@ -9,6 +9,8 @@ template<typename NumType = float, int numBufSize = 3>
 class UartNum
 {
 	Uart *uart;
+	FunctionPointerArg1<void, UartNum*> numReceivedEvent;
+
 	//用于存储接收数据位，转换为数字
 	union Char2num
 	{
@@ -25,6 +27,7 @@ class UartNum
 	bool isTrans;//标志上一次是否是转义字符
 	
 	bool isBegin;//标志是否处于帧头
+	bool hasEvent;
 
 	void rxEvent()
 	{
@@ -58,6 +61,10 @@ class UartNum
 					recievedLength = numBufSize;
 				}
 				isBegin = true;
+				if (hasEvent)
+				{
+					numReceivedEvent.call(this);
+				}
 
 #ifdef __UART_NUM_DEBUG
 				printf("转换结果%d个：", recievedLength);
@@ -106,7 +113,8 @@ public:
 		charBufIndex(0),
 		numBufIndex(0),
 		recievedLength(0),
-		isBegin(true)
+		isBegin(true),
+		hasEvent(false)
 	{
 
 	}
@@ -176,6 +184,21 @@ public:
 	int getLength()
 	{
 		return recievedLength;
+	}
+
+	//绑定数据处理函数
+	void attach(void(*numReceivedEvent)(UartNum<NumType, numBufSize>*))
+	{
+		this->numReceivedEvent.attach(numReceivedEvent);
+		hasEvent = true;
+	}
+
+	//绑定数据处理成员函数
+	template<typename T>
+	void attach(T *pObj, void (T::*numReceivedEvent)(UartNum<NumType,numBufSize>*))
+	{
+		this->numReceivedEvent.attach(pObj, numReceivedEvent);
+		hasEvent = true;
 	}
 };
 
