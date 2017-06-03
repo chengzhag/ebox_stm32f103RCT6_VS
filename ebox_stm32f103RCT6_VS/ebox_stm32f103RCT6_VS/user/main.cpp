@@ -14,10 +14,13 @@
 #include "ebox.h"
 #include "uart_num.h"
 
+UartNum<char, 10> uartNum(&uart1);
+
 void setup()
 {
     ebox_init();
-    uart1.begin(115200);
+    //uart1.begin(115200);
+	uartNum.begin(115200);
 }
 int main(void)
 {

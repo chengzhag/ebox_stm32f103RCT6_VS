@@ -3,7 +3,7 @@
 
 #include "ebox.h"
 
-//#define __UART_NUM_DEBUG
+#define __UART_NUM_DEBUG
 
 template<typename NumType = float, int numBufSize = 3>
 class UartNum
@@ -27,7 +27,6 @@ class UartNum
 	bool isTrans;//标志上一次是否是转义字符
 	
 	bool isBegin;//标志是否处于帧头
-	bool hasEvent;
 
 	void rxEvent()
 	{
@@ -61,10 +60,7 @@ class UartNum
 					recievedLength = numBufSize;
 				}
 				isBegin = true;
-				if (hasEvent)
-				{
-					numReceivedEvent.call(this);
-				}
+				numReceivedEvent.call(this);
 
 #ifdef __UART_NUM_DEBUG
 				printf("转换结果%d个：", recievedLength);
@@ -113,8 +109,7 @@ public:
 		charBufIndex(0),
 		numBufIndex(0),
 		recievedLength(0),
-		isBegin(true),
-		hasEvent(false)
+		isBegin(true)
 	{
 
 	}
@@ -190,7 +185,6 @@ public:
 	void attach(void(*numReceivedEvent)(UartNum<NumType, numBufSize>*))
 	{
 		this->numReceivedEvent.attach(numReceivedEvent);
-		hasEvent = true;
 	}
 
 	//绑定数据处理成员函数
@@ -198,7 +192,6 @@ public:
 	void attach(T *pObj, void (T::*numReceivedEvent)(UartNum<NumType,numBufSize>*))
 	{
 		this->numReceivedEvent.attach(pObj, numReceivedEvent);
-		hasEvent = true;
 	}
 };
 

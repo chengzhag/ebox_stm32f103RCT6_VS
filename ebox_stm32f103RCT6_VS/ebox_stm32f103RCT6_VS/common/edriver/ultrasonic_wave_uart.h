@@ -12,7 +12,6 @@ class UltrasonicWaveUart
     uint16_t dis;
     bool isHigh;
     bool isReady;
-	bool hasEvent;
 
 	//uart字节处理中断函数
 	void rxEvent();
@@ -47,7 +46,6 @@ template<typename T>
 void UltrasonicWaveUart::attach(T *pObj, void (T::*classDataRecieveEvent)(uint16_t))
 {
 	this->dataRecieveEvent.attach(pObj, classDataRecieveEvent);
-	hasEvent = true;
 }
 
 #endif
