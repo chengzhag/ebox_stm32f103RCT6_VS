@@ -83,6 +83,7 @@
     <ClCompile Include="common\edriver\Button.cpp" />
     <ClCompile Include="common\edriver\colorled.cpp" />
     <ClCompile Include="common\edriver\dht11.cpp" />
+    <ClCompile Include="common\edriver\drv8825.cpp" />
     <ClCompile Include="common\edriver\ds18b20.cpp" />
     <ClCompile Include="common\edriver\DS3231.cpp" />
     <ClCompile Include="common\edriver\encoder.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="common\edriver\Button.h" />
     <ClInclude Include="common\edriver\colorled.h" />
     <ClInclude Include="common\edriver\dht11.h" />
+    <ClInclude Include="common\edriver\drv8825.h" />
     <ClInclude Include="common\edriver\ds18b20.h" />
     <ClInclude Include="common\edriver\DS3231.h" />
     <ClInclude Include="common\edriver\encoder.h" />

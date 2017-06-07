@@ -680,6 +680,9 @@
     <ClCompile Include="common\edriver\uart_vcan.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
+    <ClCompile Include="common\edriver\drv8825.cpp">
+      <Filter>Source files\common\edriver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\bigiot\bigiot.h">
@@ -1295,6 +1298,9 @@
       <Filter>Header files\common\util</Filter>
     </ClInclude>
     <ClInclude Include="common\edriver\uart_vcan.h">
+      <Filter>Header files\common\edriver</Filter>
+    </ClInclude>
+    <ClInclude Include="common\edriver\drv8825.h">
       <Filter>Header files\common\edriver</Filter>
     </ClInclude>
   </ItemGroup>
