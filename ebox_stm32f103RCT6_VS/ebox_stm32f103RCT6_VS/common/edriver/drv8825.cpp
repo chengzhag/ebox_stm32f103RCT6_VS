@@ -1,19 +1,26 @@
 #include "drv8825.h"
 #include "my_math.h"
 
-void DRV8825::setFrequency(int frequency)
+void DRV8825::setFre(int frequency)
 {
 	limit(frequency, -maxFre, maxFre);
 	pct = (float)frequency / maxFre * 100;
 	if (frequency > 0)
 	{
 		pinDir->set();
+		pwm.set_duty(500);
 		pwm.set_frq(frequency);
+	}
+	else if (frequency < 0)
+	{
+		pwm.set_duty(500);
+		pinDir->reset();
+		pwm.set_frq(-frequency);
 	}
 	else
 	{
 		pinDir->reset();
-		pwm.set_frq(-frequency);
+		pwm.set_duty(0);
 	}
 }
 
@@ -28,17 +35,17 @@ DRV8825::DRV8825(Gpio* pinStep, Gpio* pinDir, int maxFre/*=25000*/) :
 
 void DRV8825::begin()
 {
-	pwm.begin(0, 50);
+	pwm.begin(0, 500);
 	pinDir->mode(OUTPUT_PP);
 	pinDir->reset();
 }
 
-void DRV8825::setPercent(float percent)
+void DRV8825::setPct(float percent)
 {
-	setFrequency(maxFre*percent / 100);
+	setFre(maxFre*percent / 100);
 }
 
-float DRV8825::getPercent()
+float DRV8825::getPct()
 {
 	return pct;
 }

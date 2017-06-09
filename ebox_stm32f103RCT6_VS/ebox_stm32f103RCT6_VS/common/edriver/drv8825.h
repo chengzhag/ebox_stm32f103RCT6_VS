@@ -11,7 +11,7 @@ class DRV8825
 	int maxFre;
 
 	//设置输出频率，负则反向，限制在maxFre范围内
-	void setFrequency(int frequency);
+	void setFre(int frequency);
 
 public:
 	//DRV8825步进电机驱动
@@ -23,10 +23,10 @@ public:
 	void begin();
 
 	//设置输出百分比
-	void setPercent(float percent);
+	void setPct(float percent);
 	
 	//获取百分比
-	float getPercent();
+	float getPct();
 
 	//获取频率
 	int getFrequency();
