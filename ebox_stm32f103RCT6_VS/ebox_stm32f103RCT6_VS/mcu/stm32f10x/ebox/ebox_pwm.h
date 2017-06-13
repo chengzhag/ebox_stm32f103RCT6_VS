@@ -37,10 +37,10 @@
                 
     定时器引脚对应列表
     通道 CH1  CH2  CH3  CH4
-    TIM1 PA8  PA9  PA10 PA11 
+    TIM1 PA8FT  PA9FT  PA10FT PA11FT
     TIM2 PA0  PA1  PA2  PA3 
     TIM3 PA6  PA7  PB0  PB1 
-    TIM4 PB6  PB7  PB8  PB9 
+    TIM4 PB6FT  PB7FT  PB8FT  PB9FT 
 */
 /**
  * Modification History:
