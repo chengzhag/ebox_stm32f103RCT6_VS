@@ -41,7 +41,7 @@ void setup()
 int main(void)
 {
 	setup();
-	float pct = 0, increase = 1;
+	float pct = 0, increase = 0.005;
 	while (1)
 	{
 
@@ -49,7 +49,7 @@ int main(void)
 		step2.setPct(pct);
 
 		pct += increase;
-		if (pct >= 100 || pct <= -100)
+		if (pct >= 1 || pct <= -1)
 		{
 			increase = -increase;
 		}
