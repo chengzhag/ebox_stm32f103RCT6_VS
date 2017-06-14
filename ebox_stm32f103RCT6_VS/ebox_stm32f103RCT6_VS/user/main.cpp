@@ -1,21 +1,24 @@
 #include "ebox.h"
 #include "led.h"
-#include "tb6612fng.h"
+#include "servo.h"
+
 
 Led led(&PC13, 1);
-TB6612FNG motor1(&PA4, &PA12, &PA0);
-TB6612FNG motor2(&PA15, &PB2, &PA1);
-TB6612FNG motor3(&PB12, &PC6, &PA2);
+Servo servo1(&PA6);
+Servo servo2(&PA7);
+Servo servo3(&PB0);
+Servo servo4(&PB1);
 
 void setup()
 {
     ebox_init();
     uart1.begin(115200);
 	led.begin();
-	motor1.begin();
-	motor2.begin();
-	motor3.begin();
 
+	servo1.begin();
+	servo2.begin();
+	servo3.begin();
+	servo4.begin();
 }
 
 
@@ -44,23 +47,24 @@ void setup()
 int main(void)
 {
 	setup();
-	float pct = 0, increase = 2;
+	float pct = 0, increase = 5;
 	while (1)
 	{
 
-		motor1.setPercent(pct);
-		motor2.setPercent(pct);
-		motor3.setPercent(pct);
-
 		pct += increase;
-		if (pct >= 50 || pct <= -50)
+		if (pct >= 100 || pct <= 0)
 		{
 			increase = -increase;
 		}
 
+		servo1.setPct(pct);
+		servo2.setPct(pct);
+		servo3.setPct(pct);
+		servo4.setPct(pct);
+
 		led.toggle();
 		uart1.printf("%f\r\n", pct);
-		delay_ms(100);
+		delay_ms(50);
 
 	}
 
