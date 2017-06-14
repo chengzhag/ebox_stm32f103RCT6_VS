@@ -1,22 +1,21 @@
 #include "ebox.h"
 #include "led.h"
-#include "drv8825.h"
+#include "tb6612fng.h"
 
 Led led(&PC13, 1);
-//DRV8825 step1(&PA8, &PC7);
-DRV8825 step2(&PA0, &PA4);
-DRV8825 step3(&PA6, &PC8);
-DRV8825 step4(&PB8, &PC9);
+TB6612FNG motor1(&PA4, &PA12, &PA0);
+TB6612FNG motor2(&PA15, &PB2, &PA1);
+TB6612FNG motor3(&PB12, &PC6, &PA2);
 
 void setup()
 {
     ebox_init();
     uart1.begin(115200);
 	led.begin();
-	//step1.begin();
-	step2.begin();
-	step3.begin();
-	step4.begin();
+	motor1.begin();
+	motor2.begin();
+	motor3.begin();
+
 }
 
 
@@ -45,24 +44,23 @@ void setup()
 int main(void)
 {
 	setup();
-	float pct = 0, increase = 0.05;
+	float pct = 0, increase = 2;
 	while (1)
 	{
 
-		//step1.setPct(pct);
-		step2.setPct(pct);
-		step3.setPct(pct);
-		step4.setPct(pct);
+		motor1.setPercent(pct);
+		motor2.setPercent(pct);
+		motor3.setPercent(pct);
 
 		pct += increase;
-		if (pct >= 3 || pct <= -3)
+		if (pct >= 50 || pct <= -50)
 		{
 			increase = -increase;
 		}
 
 		led.toggle();
-		uart1.printf("%f %d\r\n", step3.getPct(), step3.getFre());
-		delay_ms(200);
+		uart1.printf("%f\r\n", pct);
+		delay_ms(100);
 
 	}
 
