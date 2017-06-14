@@ -8,19 +8,17 @@ void DRV8825::setFre(int frequency)
 	if (frequency > 0)
 	{
 		pinDir->set();
-		pwm.set_duty(500);
 		pwm.set_frq(frequency);
 	}
 	else if (frequency < 0)
 	{
-		pwm.set_duty(500);
 		pinDir->reset();
 		pwm.set_frq(-frequency);
 	}
 	else
 	{
 		pinDir->reset();
-		pwm.set_duty(0);
+		pwm.set_frq(0);
 	}
 }
 
@@ -50,12 +48,12 @@ float DRV8825::getPct()
 	return pct;
 }
 
-int DRV8825::getFrequency()
+int DRV8825::getFre()
 {
 	return pct*maxFre / 100;
 }
 
-uint32_t DRV8825::getMaxFrequency()
+uint32_t DRV8825::getMaxFre()
 {
 	return maxFre;
 }

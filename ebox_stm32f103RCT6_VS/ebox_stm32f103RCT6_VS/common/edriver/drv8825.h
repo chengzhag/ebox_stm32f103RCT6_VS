@@ -1,11 +1,12 @@
 #ifndef  __DRV8825_H
 #define  __DRV8825_H
 #include "ebox.h"
+#include "accurate_pwm.h"
 
 
 class DRV8825
 {
-	Pwm pwm;
+	AcurratePwm pwm;
 	Gpio* pinDir;
 	float pct;
 	int maxFre;
@@ -29,10 +30,10 @@ public:
 	float getPct();
 
 	//获取频率
-	int getFrequency();
+	int getFre();
 
 	//获取最大频率
-	uint32_t getMaxFrequency();
+	uint32_t getMaxFre();
 };
 
 
