@@ -6,7 +6,7 @@
 
 class DRV8825
 {
-	AcurratePwm pwm;
+	AccuratePwm pwm;
 	Gpio* pinDir;
 	float pct;
 	int maxFre;

@@ -10,15 +10,10 @@ void DRV8825::setFre(int frequency)
 		pinDir->set();
 		pwm.set_frq(frequency);
 	}
-	else if (frequency < 0)
-	{
-		pinDir->reset();
-		pwm.set_frq(-frequency);
-	}
 	else
 	{
 		pinDir->reset();
-		pwm.set_frq(0);
+		pwm.set_frq(-frequency);
 	}
 }
 

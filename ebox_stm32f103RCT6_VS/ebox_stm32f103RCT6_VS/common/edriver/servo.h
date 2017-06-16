@@ -15,7 +15,7 @@
 //TIM4 PB6FT  PB7FT  PB8FT  PB9FT
 class Servo
 {
-	AcurratePwm pwm;
+	AccuratePwm pwm;
 	uint32_t frq;
 	uint16_t limLow,limHigh;
 	float pct;

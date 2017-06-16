@@ -87,7 +87,7 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
 ### 电机
 - tb6612fng：有刷电机双向驱动
 - servo：舵机
-- AccuratePwm:Pwm：继承自ebox Pwm的精确占空比Pwm类
+- AccuratePwm:Pwm：继承自ebox Pwm的精确占空比Pwm类，覆盖原```set_frq```函数，直接对寄存器进行操作，并且在更改预分频系数前暂存计数器的值，解决了ebox_pwm在改变频率时相位变化的问题！
 ### 控制
 - greg::PID：绝对式PID
 - sky::PID：积分分离式绝对PID
