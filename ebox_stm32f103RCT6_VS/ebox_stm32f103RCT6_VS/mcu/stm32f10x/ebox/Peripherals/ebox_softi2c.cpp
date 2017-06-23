@@ -32,7 +32,7 @@ void SoftI2c::begin(uint32_t speed)
     sda_pin->mode(OUTPUT_PP);
     scl_pin->mode(OUTPUT_PP);
 }
-int8_t SoftI2c::config(uint32_t speed)
+void SoftI2c::config(uint32_t speed)
 {
     this->speed = speed;
     switch(this->speed)
@@ -53,7 +53,6 @@ int8_t SoftI2c::config(uint32_t speed)
         delay_times = this->speed;
         break;
     }
-    return 0;
 }
 uint32_t SoftI2c::read_config()
 {

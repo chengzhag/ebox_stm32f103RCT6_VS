@@ -7,8 +7,7 @@ class OLEDI2C
 {
 	uint32_t speed;
 	uint8_t adress;
-	void* i2c;
-	uint8_t i2cType;
+	I2c* i2c;
 	char *printf_buf;
 
 	void write_byte(uint8_t reg_address, uint8_t data);
@@ -19,7 +18,6 @@ class OLEDI2C
 
 public:
 	OLEDI2C(I2c* i2c, uint8_t adress = 0x78);
-	OLEDI2C(SoftI2c* i2c, uint8_t adress = 0x78);
 
 	void begin(uint32_t speed = 400000);
 

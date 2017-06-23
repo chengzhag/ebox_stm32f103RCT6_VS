@@ -3,18 +3,9 @@
 
 void OLEDI2C::write_byte(uint8_t reg_address, uint8_t data)
 {
-	if (i2cType == 0)
-	{
-		((I2c*)i2c)->take_i2c_right(speed);
-		((I2c*)i2c)->write_byte(adress, reg_address, data);
-		((I2c*)i2c)->release_i2c_right();
-	}
-	else
-	{
-		((SoftI2c*)i2c)->take_i2c_right(speed);
-		((SoftI2c*)i2c)->write_byte(adress, reg_address, data);
-		((SoftI2c*)i2c)->release_i2c_right();
-	}
+	i2c->take_i2c_right(speed);
+	i2c->write_byte(adress, reg_address, data);
+	i2c->release_i2c_right();
 }
 
 void OLEDI2C::write_cmd(unsigned char cmd) //Ð´ÃüÁî
@@ -30,17 +21,7 @@ void OLEDI2C::write_data(unsigned char dat) //Ð´Êý¾Ý
 OLEDI2C::OLEDI2C(I2c* i2c, uint8_t adress /*= 0x78*/) :
 	i2c(i2c),
 	speed(400000),
-	adress(adress),
-	i2cType(0)
-{
-
-}
-
-OLEDI2C::OLEDI2C(SoftI2c* i2c, uint8_t adress /*= 0x78*/) :
-	i2c(i2c),
-	speed(400000),
-	adress(adress),
-	i2cType(1)
+	adress(adress)
 {
 
 }
@@ -48,18 +29,9 @@ OLEDI2C::OLEDI2C(SoftI2c* i2c, uint8_t adress /*= 0x78*/) :
 void OLEDI2C::begin(uint32_t speed /*= 400000*/)
 {
 	this->speed = speed;
-	if (i2cType == 0)
-	{
-		((I2c*)i2c)->take_i2c_right(speed);
-		((I2c*)i2c)->begin(speed);
-		((I2c*)i2c)->release_i2c_right();
-	}
-	else
-	{
-		((SoftI2c*)i2c)->take_i2c_right(speed);
-		((SoftI2c*)i2c)->begin(speed);
-		((SoftI2c*)i2c)->release_i2c_right();
-	}
+	i2c->take_i2c_right(speed);
+	i2c->begin(speed);
+	i2c->release_i2c_right();
 	delay_ms(100);
 	write_cmd(0xAE); //display off
 	write_cmd(0x20);	//Set Memory Addressing Mode	

@@ -23,16 +23,35 @@
 
 #include "ebox_common.h"
 
+class I2c
+{
+
+public:
+	virtual void		begin(uint32_t speed) = 0;
+	virtual void        config(uint32_t speed) = 0;
+	virtual uint32_t    read_config() = 0;
+
+	virtual int8_t	write_byte(uint8_t slave_address, uint8_t reg_address, uint8_t data) = 0;
+	virtual int8_t	write_byte(uint8_t slave_address, uint8_t reg_address, uint8_t *data, uint16_t num_to_write) = 0;
+	virtual int8_t	read_byte(uint8_t slave_address, uint8_t reg_address, uint8_t *data) = 0;
+	virtual int8_t	read_byte(uint8_t slave_address, uint8_t reg_address, uint8_t *data, uint16_t num_to_read) = 0;
+	virtual int8_t	wait_dev_busy(uint8_t slave_address) = 0;
+
+	virtual int8_t take_i2c_right(uint32_t speed) = 0;
+	virtual int8_t release_i2c_right(void) = 0;
+
+};
+
 /*
 	1.支持I2C1和I2C2
 	2.暂时不支持remap，后续很快会完成
 */
 
-class I2c
+class HardI2c :public I2c
 {
 
 public:
-    I2c(I2C_TypeDef *I2Cx, Gpio *scl_pin, Gpio *sda_pin);
+    HardI2c(I2C_TypeDef *I2Cx, Gpio *scl_pin, Gpio *sda_pin);
     void		begin(uint32_t speed);
     void        config(uint32_t speed);
     uint32_t    read_config();
@@ -73,12 +92,12 @@ private:
 				2.speed设置只能为100000，200000,300k,400k。如果不是此值，则会将speed的值直接传递给delay_us.即delay_us(speed);
 				3.初期调试I2C设备建议使用100k。或者大于10的值
 */
-class SoftI2c
+class SoftI2c :public I2c
 {
 public:
     SoftI2c(Gpio *scl, Gpio *sda);
     void 		begin(uint32_t speed);
-    int8_t 		config(uint32_t speed);
+    void 		config(uint32_t speed);
     uint32_t	read_config();
     int8_t		write_byte(uint8_t slave_address, uint8_t reg_address, uint8_t data);
     int8_t 		write_byte(uint8_t slave_address, uint8_t reg_address, uint8_t *data, uint16_t num_to_write);
