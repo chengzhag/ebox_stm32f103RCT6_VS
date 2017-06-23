@@ -749,6 +749,9 @@
     <ClCompile Include="mcu\stm32f10x\ebox\Peripherals\ebox_wdg.cpp">
       <Filter>Source files\mcu\stm32f10x\ebox\Peripherals</Filter>
     </ClCompile>
+    <ClCompile Include="common\edriver\oled_i2c.cpp">
+      <Filter>Source files\common\edriver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\bigiot\bigiot.h">
@@ -1371,6 +1374,9 @@
     </ClInclude>
     <ClInclude Include="mcu\stm32f10x\ebox\Peripherals\ebox_wdg.h">
       <Filter>Header files\mcu\stm32f10x\ebox\Peripherals</Filter>
+    </ClInclude>
+    <ClInclude Include="common\edriver\oled_i2c.h">
+      <Filter>Header files\common\edriver</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

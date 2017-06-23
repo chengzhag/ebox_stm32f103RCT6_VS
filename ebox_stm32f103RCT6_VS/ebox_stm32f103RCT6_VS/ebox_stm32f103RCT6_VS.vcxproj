@@ -109,6 +109,7 @@
     <ClCompile Include="common\edriver\Nokia5110.cpp" />
     <ClCompile Include="common\edriver\NRF24L01.cpp" />
     <ClCompile Include="common\edriver\OLED.cpp" />
+    <ClCompile Include="common\edriver\oled_i2c.cpp" />
     <ClCompile Include="common\edriver\OLED_ssd1306.cpp" />
     <ClCompile Include="common\edriver\parallel_gpio.cpp" />
     <ClCompile Include="common\edriver\PID.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="common\edriver\Nokia5110.h" />
     <ClInclude Include="common\edriver\NRF24L01.h" />
     <ClInclude Include="common\edriver\OLED.h" />
+    <ClInclude Include="common\edriver\oled_i2c.h" />
     <ClInclude Include="common\edriver\OLED_ssd1306.h" />
     <ClInclude Include="common\edriver\parallel_gpio.h" />
     <ClInclude Include="common\edriver\PID.hpp" />
