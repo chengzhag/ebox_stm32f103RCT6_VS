@@ -2,6 +2,10 @@
 #define __MY_MATH_H
 
 #include "ebox.h"
+#include <limits>
+//#include <limits.h>
+//#include <float.h>
+ 
 
 //限制某个数的下界
 template<typename T>
