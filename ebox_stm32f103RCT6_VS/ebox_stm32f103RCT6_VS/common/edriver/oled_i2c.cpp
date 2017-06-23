@@ -1,5 +1,5 @@
 #include "oled_i2c.h"
-
+#include "font.h"
 
 void OLEDI2C::write_byte(uint8_t reg_address, uint8_t data)
 {
@@ -184,6 +184,34 @@ void OLEDI2C::show_string(unsigned char x, unsigned char y, char ch[], unsigned 
 		}
 		j++;
 	}
+}
+
+void OLEDI2C::printf(uint8_t x, uint8_t y, unsigned char TextSize, const char *fmt, ...)
+{
+	int     size1 = 0;
+	size_t  size2 = 256;
+
+	if (printf_buf != NULL)
+		ebox_free(printf_buf);
+	va_list va_params;
+	va_start(va_params, fmt);
+
+	do {
+		printf_buf = (char *)ebox_malloc(size2);
+		if (printf_buf == NULL)
+			return;
+		size1 = _vsnprintf(printf_buf, size2, fmt, va_params);
+		if (size1 == -1 || size1 > size2)
+		{
+			size2 += 128;
+			size1 = -1;
+			ebox_free(printf_buf);
+		}
+	} while (size1 == -1);
+
+	vsprintf(printf_buf, fmt, va_params);
+	va_end(va_params);
+	show_string(x, y, printf_buf, TextSize);
 }
 
 void OLEDI2C::show_chinese(unsigned char x, unsigned char y, unsigned char N)

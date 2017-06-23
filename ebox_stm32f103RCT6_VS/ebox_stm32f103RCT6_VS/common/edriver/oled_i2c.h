@@ -2,8 +2,6 @@
 #define _OLED_I2C_H
 
 #include "ebox.h"
-#include "font.h"
-#include <math.h>
 
 class OLEDI2C
 {
@@ -11,6 +9,7 @@ class OLEDI2C
 	uint8_t adress;
 	void* i2c;
 	uint8_t i2cType;
+	char *printf_buf;
 
 	void write_byte(uint8_t reg_address, uint8_t data);
 	//写命令
@@ -45,12 +44,7 @@ public:
 	//显示codetab.h中的ASCII字符,有6*8和8*16可选择
 	void show_string(unsigned char x, unsigned char y, char ch[], unsigned char TextSize = 1);
 
-	//void printf(uint8_t x, uint8_t y, unsigned char TextSize, const char *fmt, ...)
-	//{
-	//	char temp[30];
-	//	sprintf(temp, fmt);
-	//	show_string(x, y, temp, TextSize);
-	//}
+	void printf(uint8_t x, uint8_t y, unsigned char TextSize, const char *fmt, ...);
 
 	//x,y -- 起始点坐标(x:0~127, y:0~7); N:汉字在codetab.h中的索引
 	//显示codetab.h中的汉字,16*16点阵

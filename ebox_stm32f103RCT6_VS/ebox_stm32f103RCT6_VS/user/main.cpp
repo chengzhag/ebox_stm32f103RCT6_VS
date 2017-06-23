@@ -2,6 +2,7 @@
 #include "led.h"
 #include "oled_i2c.h"
 #include "Button.h"
+#include "font.h"
 
 OLEDI2C oled(&i2c2);
 
@@ -23,8 +24,8 @@ int main(void)
 		delay_ms(1000);
 		oled.show_chinese(0, 2, 0);
 		delay_ms(1000);
-		//oled.printf(0, 4, 1,"ok!!%d", num);
-		//delay_ms(1000);
+		oled.printf(0, 4, 1, "ok!!%.3f %d", 0.41, num);
+		delay_ms(1000);
 		oled.draw_bmp(0, 0, 128, 8, (unsigned char *)BMP1);
 		delay_ms(1000);
 		oled.draw_bmp(0, 0, 128, 8, (unsigned char *)BMP2);
