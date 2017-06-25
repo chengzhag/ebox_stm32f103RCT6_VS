@@ -1,36 +1,36 @@
 #include "ebox.h"
-#include "led.h"
-#include "oled_i2c.h"
-#include "Button.h"
-#include "font.h"
+#include "mpu9250.h"
+#include "my_math.h"
 
-OLEDI2C oled(&i2c2);
+MPU9250 mpu(&i2c1,MPU9250_Model_9255);
+FpsCounter fps;
 
 void setup()
 {
 	ebox_init();
 	uart1.begin(115200);
-	oled.begin();
+	mpu.begin(400000,100,MPU9250_Gyro_Full_Scale_2000dps,MPU9250_Accel_Full_Scale_16g);
+	fps.begin();
 }
 int main(void)
 {
 	setup();
-	int num = 1512;
+	float t, gx, gy, gz, ax, ay, az, mx, my, mz;
+	//float pitch, roll, yaw;
 	while (1)
 	{
-		oled.show_string(0, 0, "ok!!!!", 1);
-		delay_ms(1000);
-		oled.show_string(0, 0, "ok!!!!", 2);
-		delay_ms(1000);
-		oled.show_chinese(0, 2, 0);
-		delay_ms(1000);
-		oled.printf(0, 4, 1, "ok!!%.3f %d", 0.41, num);
-		delay_ms(1000);
-		oled.draw_bmp(0, 0, 128, 8, (unsigned char *)BMP1);
-		delay_ms(1000);
-		oled.draw_bmp(0, 0, 128, 8, (unsigned char *)BMP2);
-		delay_ms(1000);
-		oled.clear();
+		//mpu.getAngle(&pitch, &roll, &yaw);
+		//uart1.printf("%f %f %f\r\n", pitch, roll, yaw);
+		mpu.getGyroscope(&gx, &gy, &gz);
+		mpu.getAccelerometer(&ax, &ay, &az);
+		mpu.getMagnetometer(&mx, &my, &mz);
+		t = mpu.getTemperature();
+		uart1.printf("%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\r\n",
+			t, gx, gy, gz, ax, ay, az, mx, my, mz,fps.getFps());
+		//uart1.printf("%d %d %d %d %d %d %d %d %d %d\r\n",
+		//	t, gx, gy, gz, ax, ay, az, mx, my, mz);
+
+		delay_ms(10);
 	}
 
 }

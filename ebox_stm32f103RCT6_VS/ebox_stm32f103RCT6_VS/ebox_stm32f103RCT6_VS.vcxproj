@@ -106,6 +106,7 @@
     <ClCompile Include="common\edriver\Max7456.cpp" />
     <ClCompile Include="common\edriver\mmc_sd.cpp" />
     <ClCompile Include="common\edriver\MPU6050.cpp" />
+    <ClCompile Include="common\edriver\mpu9250.cpp" />
     <ClCompile Include="common\edriver\Nokia5110.cpp" />
     <ClCompile Include="common\edriver\NRF24L01.cpp" />
     <ClCompile Include="common\edriver\OLED.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="common\edriver\Max7456.h" />
     <ClInclude Include="common\edriver\mmc_sd.h" />
     <ClInclude Include="common\edriver\MPU6050.h" />
+    <ClInclude Include="common\edriver\mpu9250.h" />
     <ClInclude Include="common\edriver\Nokia5110.h" />
     <ClInclude Include="common\edriver\NRF24L01.h" />
     <ClInclude Include="common\edriver\OLED.h" />
