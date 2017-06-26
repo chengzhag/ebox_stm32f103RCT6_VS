@@ -203,92 +203,37 @@ public:
 	//返回值:0,成功
 	//    其他,错误代码
 	u8 getGyroscope(short *gx, short *gy, short *gz);
-	u8 getGyroscope(float *gx, float *gy, float *gz)
-	{
-		short x, y, z;
-		getGyroscope(&x, &y, &z);
-		//16.4 = 2^16/4000 lsb °/s     1/16.4=0.061     0.0174 = 3.14/180
-		//陀螺仪数据从ADC转化为弧度每秒(这里需要减去偏移值)
-		*gx = 2 * (float)x*gyroFsr / 65536 * 0.0174;
-		*gy = 2 * (float)y*gyroFsr / 65536 * 0.0174;
-		*gz = 2 * (float)z*gyroFsr / 65536 * 0.0174;	//读出值减去基准值乘以单位，计算陀螺仪角速度
-	}
+	u8 getGyroscope(float *gx, float *gy, float *gz);
 
 	//得到加速度值(原始值)
 	//gx,gy,gz:陀螺仪x,y,z轴的原始读数(带符号)
 	//返回值:0,成功
 	//    其他,错误代码
 	u8 getAccelerometer(short *ax, short *ay, short *az);
-	u8 getAccelerometer(float *ax, float *ay, float *az)
-	{
-		short x, y, z;
-		getAccelerometer(&x, &y, &z);
-		//+-8g,2^16/16=4096lsb/g--0.244mg/lsb
-		//此处0.0098是：(9.8m/s^2)/1000,乘以mg得m/s^2
-		*ax = (float)x*(2 * accelFsr)  * 9.8 / 65536;
-		*ay = (float)y*(2 * accelFsr)  * 9.8 / 65536;
-		*az = (float)z*(2 * accelFsr)  * 9.8 / 65536;
-	}
+	u8 getAccelerometer(float *ax, float *ay, float *az);
 
 	//得到磁力计值(原始值)
 	//mx,my,mz:磁力计x,y,z轴的原始读数(带符号)
 	//返回值:0,成功
 	//    其他,错误代码
 	u8 getMagnetometer(short *mx, short *my, short *mz);
-	u8 getMagnetometer(float *mx, float *my, float *mz)
-	{
-		short x, y, z;
-		getMagnetometer(&x, &y, &z);
-		//±4800uT 2^16/9600 = 6.83lsb/uT     1/6.83 = 0.1465
-		//地磁强度为 5-6 x 10^(-5) T = 50 - 60 uT
-		*mx = (float)x*0.1465;
-		*my = (float)y*0.1465;
-		*mz = (float)z*0.1465;
-	}
+	u8 getMagnetometer(float *mx, float *my, float *mz);
 
 	//获取采样率
 	u16 getSampleRate();
 
 };
 
-class AHRS9
+
+
+class MahonyAHRS9
 {
 protected:
-	//传感器原始数据
-	typedef struct  sensor_data
-	{
-		short X;
-		short Y;
-		short Z;
-	sensor_data():X(0), Y(0), Z(0){}
-	}SENSOR_DATA;
-
-	SENSOR_DATA Gyrobuf;//陀螺仪
-	SENSOR_DATA Accbuf;//加速度
-	SENSOR_DATA Magbuf;//磁力计
-
-	SENSOR_DATA Accoffset;//加速度偏移量
-	SENSOR_DATA Gyrooffset;//陀螺仪偏移量
-	SENSOR_DATA Magoffset;//磁力计偏移量
-
-	//处理后的数据
-	typedef struct  imu_data
-	{
-		float X;
-		float Y;
-		float Z;
-		imu_data() :X(0), Y(0), Z(0) {}
-	}IMU_DATA;
-
-	IMU_DATA GyroFinal, AccFinal, MagFinal;
-
 	float q0, q1, q2, q3;	// quaternion of sensor frame relativ
-	float beta;								// 2 * proportional gain (Kp)
-	float sampleFreq;		// sample frequency in Hz  采样率 100 HZ  10ms  修改此频率可增加变化速度
-
-	float Pitch;
-	float Roll;
-	float Yaw;
+	float exInt, eyInt, ezInt;
+	float Ki, Kp;
+	float halfT;
+	float sampleFreq;
 
 	//快速逆平方根
 	float invSqrt(float x)
@@ -304,72 +249,23 @@ protected:
 
 
 public:
-	AHRS9(float sampleFreq = 100, float beta = 0.1) :
-		sampleFreq(sampleFreq),
-		beta(beta),
-		q0(1), q1(0), q2(0), q3(0)
+	MahonyAHRS9(float sampleFreq = 100, float kp = 11, float ki = 0.008) :
+		Kp(kp),Ki(ki),
+		q0(1), q1(0), q2(0), q3(0),
+		exInt(0), eyInt(0), ezInt(0)
 	{
-
+		setSampleRate(sampleFreq);
 	}
 
-	void AHRS_Dataprepare(short* gyroXYZ, short* accXYZ, short* magXYZ)
-	{
-		Gyrobuf.X = gyroXYZ[0];
-		Gyrobuf.Y = gyroXYZ[1];
-		Gyrobuf.Z = gyroXYZ[2];//读取陀螺仪数据-ADC数字量
-		Accbuf.X = accXYZ[0];
-		Accbuf.Y = accXYZ[1];
-		Accbuf.Z = accXYZ[2];//读取加速度计数据-ADC数字量
-		Magbuf.X = magXYZ[0];
-		Magbuf.Y = magXYZ[1];
-		Magbuf.Z = magXYZ[2];//读取磁力计数据-ADC数字量
-
-		//16.4 = 2^16/4000 lsb °/s     1/16.4=0.061     0.0174 = 3.14/180
-		//陀螺仪数据从ADC转化为弧度每秒(这里需要减去偏移值)
-		GyroFinal.X = (Gyrobuf.X - Gyrooffset.X)*0.061*0.0174;
-		GyroFinal.Y = (Gyrobuf.Y - Gyrooffset.Y)*0.061*0.0174;
-		GyroFinal.Z = (Gyrobuf.Z - Gyrooffset.Z)*0.061*0.0174;		//读出值减去基准值乘以单位，计算陀螺仪角速度
-
-		//+-8g,2^16/16=4096lsb/g--0.244mg/lsb
-		//此处0.0098是：(9.8m/s^2)/1000,乘以mg得m/s^2
-		AccFinal.X = (float)((Accbuf.X - Accoffset.X)*0.244)*0.0098;
-		AccFinal.Y = (float)((Accbuf.Y - Accoffset.Y)*0.244)*0.0098;
-		AccFinal.Z = (float)((Accbuf.Z - Accoffset.Z)*0.244)*0.0098;
-
-
-		//±4800uT 2^16/9600 = 6.83lsb/uT     1/6.83 = 0.1465
-		//地磁强度为 5-6 x 10^(-5) T = 50 - 60 uT
-		MagFinal.X = (float)(Magbuf.X - Magoffset.X)*0.1465;
-		MagFinal.Y = (float)(Magbuf.Y - Magoffset.Y)*0.1465;
-		MagFinal.Z = (float)(Magbuf.Z - Magoffset.Z)*0.1465;
-
-	}
-
-	//9轴姿态解算
-	void AHRSupdate()
-	{
-		AHRSupdate(GyroFinal.X, GyroFinal.Y, GyroFinal.Z,
-			AccFinal.X, AccFinal.Y, AccFinal.Z,
-			MagFinal.X, MagFinal.Y, MagFinal.Z);
-	}
-
-	void AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz)
+	void update(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz)
 	{
 		float recipNorm;
-		float s0, s1, s2, s3;
-		float qDot1, qDot2, qDot3, qDot4;
-		float hx, hy;
-		float _2q0mx, _2q0my, _2q0mz, _2q1mx, _2bx, _2bz, _4bx, _4bz, _2q0, _2q1, _2q2, _2q3, _2q0q2, _2q2q3, q0q0, q0q1, q0q2, q0q3, q1q1, q1q2, q1q3, q2q2, q2q3, q3q3;
-
-		// Rate of change of quaternion from gyroscope
-		//四元数变化率
-		qDot1 = 0.5f * (-q1 * gx - q2 * gy - q3 * gz);
-		qDot2 = 0.5f * (q0 * gx + q2 * gz - q3 * gy);
-		qDot3 = 0.5f * (q0 * gy - q1 * gz + q3 * gx);
-		qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
-
-		// Compute feedback only if accelerometer measurement valid (avoids NaN in accelerometer normalisation)
-		//
+		float q0q0, q0q1, q0q2, q0q3, q1q1, q1q2, q1q3, q2q2, q2q3, q3q3;
+		float hx, hy, hz, bx, bz;
+		float vx, vy, vz, wx, wy, wz;
+		float ex, ey, ez;
+		float qa, qb, qc;
+		float integralFBx, integralFBy, integralFBz;
 		if (!((ax == 0.0f) && (ay == 0.0f) && (az == 0.0f)))
 		{
 
@@ -387,18 +283,8 @@ public:
 			my *= recipNorm;
 			mz *= recipNorm;
 
+			//预先进行四元数数据运算，以避免重复运算带来的效率问题。
 			// Auxiliary variables to avoid repeated arithmetic
-			//辅助变量，避免重复运算
-			_2q0mx = 2.0f * q0 * mx;
-			_2q0my = 2.0f * q0 * my;
-			_2q0mz = 2.0f * q0 * mz;
-			_2q1mx = 2.0f * q1 * mx;
-			_2q0 = 2.0f * q0;
-			_2q1 = 2.0f * q1;
-			_2q2 = 2.0f * q2;
-			_2q3 = 2.0f * q3;
-			_2q0q2 = 2.0f * q0 * q2;
-			_2q2q3 = 2.0f * q2 * q3;
 			q0q0 = q0 * q0;
 			q0q1 = q0 * q1;
 			q0q2 = q0 * q2;
@@ -410,77 +296,86 @@ public:
 			q2q3 = q2 * q3;
 			q3q3 = q3 * q3;
 
-			// Reference direction of Earth's magnetic field
-			//地球磁场参考方向
-			hx = mx * q0q0 - _2q0my * q3 + _2q0mz * q2 + mx * q1q1 + _2q1 * my * q2 + _2q1 * mz * q3 - mx * q2q2 - mx * q3q3;
-			hy = _2q0mx * q3 + my * q0q0 - _2q0mz * q1 + _2q1mx * q2 - my * q1q1 + my * q2q2 + _2q2 * mz * q3 - my * q3q3;
-			_2bx = sqrt(hx * hx + hy * hy);
-			_2bz = -_2q0mx * q2 + _2q0my * q1 + mz * q0q0 + _2q1mx * q3 - mz * q1q1 + _2q2 * my * q3 - mz * q2q2 + mz * q3q3;
-			_4bx = 2.0f * _2bx;
-			_4bz = 2.0f * _2bz;
+			hx = 2.0f * (mx * (0.5f - q2q2 - q3q3) + my * (q1q2 - q0q3) + mz * (q1q3 + q0q2));
+			hy = 2.0f * (mx * (q1q2 + q0q3) + my * (0.5f - q1q1 - q3q3) + mz * (q2q3 - q0q1));
+			hz = 2.0f * (mx * (q1q3 - q0q2) + my * (q2q3 + q0q1) + mz * (0.5f - q1q1 - q2q2));
+			bx = sqrt(hx * hx + hy * hy);
+			bz = hz;
 
-			// Gradient decent algorithm corrective step
-			//梯度校正算法
-			s0 = -_2q2 * (2.0f * q1q3 - _2q0q2 - ax) + _2q1 * (2.0f * q0q1 + _2q2q3 - ay) - _2bz * q2 * (_2bx * (0.5f - q2q2 - q3q3) + _2bz * (q1q3 - q0q2) - mx) + (-_2bx * q3 + _2bz * q1) * (_2bx * (q1q2 - q0q3) + _2bz * (q0q1 + q2q3) - my) + _2bx * q2 * (_2bx * (q0q2 + q1q3) + _2bz * (0.5f - q1q1 - q2q2) - mz);
-			s1 = _2q3 * (2.0f * q1q3 - _2q0q2 - ax) + _2q0 * (2.0f * q0q1 + _2q2q3 - ay) - 4.0f * q1 * (1 - 2.0f * q1q1 - 2.0f * q2q2 - az) + _2bz * q3 * (_2bx * (0.5f - q2q2 - q3q3) + _2bz * (q1q3 - q0q2) - mx) + (_2bx * q2 + _2bz * q0) * (_2bx * (q1q2 - q0q3) + _2bz * (q0q1 + q2q3) - my) + (_2bx * q3 - _4bz * q1) * (_2bx * (q0q2 + q1q3) + _2bz * (0.5f - q1q1 - q2q2) - mz);
-			s2 = -_2q0 * (2.0f * q1q3 - _2q0q2 - ax) + _2q3 * (2.0f * q0q1 + _2q2q3 - ay) - 4.0f * q2 * (1 - 2.0f * q1q1 - 2.0f * q2q2 - az) + (-_4bx * q2 - _2bz * q0) * (_2bx * (0.5f - q2q2 - q3q3) + _2bz * (q1q3 - q0q2) - mx) + (_2bx * q1 + _2bz * q3) * (_2bx * (q1q2 - q0q3) + _2bz * (q0q1 + q2q3) - my) + (_2bx * q0 - _4bz * q2) * (_2bx * (q0q2 + q1q3) + _2bz * (0.5f - q1q1 - q2q2) - mz);
-			s3 = _2q1 * (2.0f * q1q3 - _2q0q2 - ax) + _2q2 * (2.0f * q0q1 + _2q2q3 - ay) + (-_4bx * q3 + _2bz * q1) * (_2bx * (0.5f - q2q2 - q3q3) + _2bz * (q1q3 - q0q2) - mx) + (-_2bx * q0 + _2bz * q2) * (_2bx * (q1q2 - q0q3) + _2bz * (q0q1 + q2q3) - my) + _2bx * q1 * (_2bx * (q0q2 + q1q3) + _2bz * (0.5f - q1q1 - q2q2) - mz);
-			recipNorm = invSqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3); // normalise step magnitude
-			s0 *= recipNorm;
-			s1 *= recipNorm;
-			s2 *= recipNorm;
-			s3 *= recipNorm;
+			vx = q1q3 - q0q2;
+			vy = q0q1 + q2q3;
+			vz = q0q0 - 0.5f + q3q3;
+			wx = bx * (0.5f - q2q2 - q3q3) + bz * (q1q3 - q0q2);
+			wy = bx * (q1q2 - q0q3) + bz * (q0q1 + q2q3);
+			wz = bx * (q0q2 + q1q3) + bz * (0.5f - q1q1 - q2q2);
 
-			// Apply feedback step
-			//应用反馈步骤
-			qDot1 -= beta * s0;
-			qDot2 -= beta * s1;
-			qDot3 -= beta * s2;
-			qDot4 -= beta * s3;
+			//使用叉积来计算重力和地磁误差。
+			// Error is sum of cross product between estimated direction and measured direction of field vectors
+			ex = (ay * vz - az * vy) + (my * wz - mz * wy) / 1;
+			ey = (az * vx - ax * vz) + (mz * wx - mx * wz) / 1;
+			ez = (ax * vy - ay * vx) + (mx * wy - my * wx) / 1;
+
+			//对误差进行积分
+			exInt += Ki * ex * (1.0f / sampleFreq); // integral error scaled by Ki
+			eyInt += Ki * ey * (1.0f / sampleFreq);
+			ezInt += Ki * ez * (1.0f / sampleFreq);
+
+			//将真实的加速度测量值以一定比例作用于陀螺仪，0就是完全信任陀螺仪，1就是完全信任加速度，大于1？
+			gx = gx + Kp*ex + exInt;
+			gy = gy + Kp*ey + eyInt;
+			gz = gz + Kp*ez + ezInt;
+
+			qa = q0;
+			qb = q1;
+			qc = q2;
+			q0 += (-qb * gx - qc * gy - q3 * gz)*halfT;
+			q1 += (qa * gx + qc * gz - q3 * gy)*halfT;
+			q2 += (qa * gy - qb * gz + q3 * gx)*halfT;
+			q3 += (qa * gz + qb * gy - qc * gx)*halfT;
+
+			// Normalise quaternion
+
+			recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
+			q0 *= recipNorm;
+			q1 *= recipNorm;
+			q2 *= recipNorm;
+			q3 *= recipNorm;
+			
 		}
 
-		// Integrate rate of change of quaternion to yield quaternion
-		//四元数变化率的集成率
-		q0 += qDot1 * (1.0f / sampleFreq);
-		q1 += qDot2 * (1.0f / sampleFreq);
-		q2 += qDot3 * (1.0f / sampleFreq);
-		q3 += qDot4 * (1.0f / sampleFreq);
-
-		// 正常化四元数
-		recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
-		q0 *= recipNorm;
-		q1 *= recipNorm;
-		q2 *= recipNorm;
-		q3 *= recipNorm;
-
-
-		//四元数转换成欧拉角
-		Pitch = asin(2 * q0*q2 - 2 * q1*q3) / 3.14 * 180;
-		Roll = atan2(2 * q0q1 + 2 * q2q3, 1 - 2 * q1q1 - 2 * q2q2) / 3.14 * 180;
-		Yaw = atan2(2 * q0q3 + 2 * q1*q2, 1 - 2 * q2*q2 - 2 * q3*q3) / 3.14 * 180;
-
-	}
-
-	void getAngle(float* Pitch, float* Roll, float* Yaw)
-	{
-		*Pitch = this->Pitch;
-		*Roll = this->Roll;
-		*Yaw = this->Yaw;
 	}
 
 	void setSampleRate(float sampleRate)
 	{
 		this->sampleFreq = sampleRate;
+		halfT = 1 / (2 * sampleFreq);
+	}
+
+	void getAngle(float* Pitch, float* Roll, float* Yaw)
+	{
+		//四元数转换成欧拉角
+		*Pitch = asin(2 * q0*q2 - 2 * q1*q3) / 3.14 * 180;
+		*Roll = atan2(2 * q0*q1 + 2 * q2*q3, 1 - 2 * q1*q1 - 2 * q2*q2) / 3.14 * 180;
+		*Yaw = atan2(2 * q0*q3 + 2 * q1*q2, 1 - 2 * q2*q2 - 2 * q3*q3) / 3.14 * 180;
+	}
+
+	void getQuaternion(float* q0, float* q1, float* q2, float* q3)
+	{
+		*q0 = this->q0;
+		*q1 = this->q1;
+		*q2 = this->q2;
+		*q3 = this->q3;
 	}
 };
 
-class MPU9250AHRS :public MPU9250, private AHRS9
+class MPU9250AHRS :public MPU9250, private MahonyAHRS9
 {
 protected:
 
 public:
 	MPU9250AHRS(I2c* i2c, MPU9250_Model_Typedef model = MPU9250_Model_9250) :
-		MPU9250(i2c, model)
+		MPU9250(i2c, model),
+		MahonyAHRS9(100, 11, 0.008)
 	{
 
 	}
@@ -490,20 +385,22 @@ public:
 		MPU9250_Accel_Full_Scale_Typedef accelFsr = MPU9250_Accel_Full_Scale_8g)
 	{
 		MPU9250::begin(speed, sampleRate, gyroFsr, accelFsr);
-		AHRS9::setSampleRate(sampleRate);
+		MahonyAHRS9::setSampleRate(sampleRate);
 	}
 
 	void getAngle(float* pitch, float* roll, float* yaw)
 	{
-		short g[3], a[3], m[3];
-		getGyroscope(g, g+1, g+2);
+		float g[3], a[3], m[3];
+		getGyroscope(g, g + 1, g + 2);
 		getAccelerometer(a, a + 1, a + 2);
 		getMagnetometer(m, m + 1, m + 2);
 
-		AHRS9::AHRS_Dataprepare(g, a, m);
-		AHRS9::AHRSupdate();
+		MahonyAHRS9::update(
+			g[0], g[1], g[2],
+			a[0], a[1], a[2],
+			m[0], m[1], m[2]);
 
-		AHRS9::getAngle(pitch, roll, yaw);
+		MahonyAHRS9::getAngle(pitch, roll, yaw);
 
 	}
 };

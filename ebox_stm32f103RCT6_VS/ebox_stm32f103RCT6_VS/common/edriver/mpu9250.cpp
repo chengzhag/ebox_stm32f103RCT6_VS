@@ -135,11 +135,6 @@ u8 MPU9250::begin(uint32_t speed /*= 400000*/, uint16_t sampleRate /*= 100*/,
 	return 0;
 }
 
-//u8 MPU9250::setGyroFsr(u8 fsr)
-//{
-//	return writeByte(MPU9250_ADDR, MPU_GYRO_CFG_REG, fsr << 3);//设置陀螺仪满量程范围
-//}
-
 u8 MPU9250::setGyroFsr(u8 fsr)
 {
 	return writeByte(MPU9250_ADDR, MPU_GYRO_CFG_REG, fsr << 3);//设置陀螺仪满量程范围
@@ -196,6 +191,17 @@ u8 MPU9250::getGyroscope(short *gx, short *gy, short *gz)
 	return res;
 }
 
+u8 MPU9250::getGyroscope(float *gx, float *gy, float *gz)
+{
+	short x, y, z;
+	getGyroscope(&x, &y, &z);
+	//16.4 = 2^16/4000 lsb °/s     1/16.4=0.061     0.0174 = 3.14/180
+	//陀螺仪数据从ADC转化为弧度每秒(这里需要减去偏移值)
+	*gx = 2 * (float)x*gyroFsr / 65536 * 0.0174;
+	*gy = 2 * (float)y*gyroFsr / 65536 * 0.0174;
+	*gz = 2 * (float)z*gyroFsr / 65536 * 0.0174;	//读出值减去基准值乘以单位，计算陀螺仪角速度
+}
+
 u8 MPU9250::getAccelerometer(short *ax, short *ay, short *az)
 {
 	u8 buf[6], res;
@@ -207,6 +213,17 @@ u8 MPU9250::getAccelerometer(short *ax, short *ay, short *az)
 		*az = ((u16)buf[4] << 8) | buf[5];
 	}
 	return res;
+}
+
+u8 MPU9250::getAccelerometer(float *ax, float *ay, float *az)
+{
+	short x, y, z;
+	getAccelerometer(&x, &y, &z);
+	//+-8g,2^16/16=4096lsb/g--0.244mg/lsb
+	//此处0.0098是：(9.8m/s^2)/1000,乘以mg得m/s^2
+	*ax = (float)x*(2 * accelFsr)  * 9.8 / 65536;
+	*ay = (float)y*(2 * accelFsr)  * 9.8 / 65536;
+	*az = (float)z*(2 * accelFsr)  * 9.8 / 65536;
 }
 
 u8 MPU9250::getMagnetometer(short *mx, short *my, short *mz)
@@ -221,6 +238,17 @@ u8 MPU9250::getMagnetometer(short *mx, short *my, short *mz)
 	}
 	writeByte(AK8963_ADDR, MAG_CNTL1, 0X11); //AK8963每次读完以后都需要重新设置为单次测量模式
 	return res;
+}
+
+u8 MPU9250::getMagnetometer(float *mx, float *my, float *mz)
+{
+	short x, y, z;
+	getMagnetometer(&x, &y, &z);
+	//±4800uT 2^16/9600 = 6.83lsb/uT     1/6.83 = 0.1465
+	//地磁强度为 5-6 x 10^(-5) T = 50 - 60 uT
+	*mx = (float)x*0.1465;
+	*my = (float)y*0.1465;
+	*mz = (float)z*0.1465;
 }
 
 u16 MPU9250::getSampleRate()
