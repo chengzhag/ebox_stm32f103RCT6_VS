@@ -20,6 +20,43 @@
 /* Includes ------------------------------------------------------------------*/
 #include "ebox_i2c.h"
 
+void I2cIC::writeByte(u8 addr, u8 reg, u8 data)
+{
+	i2c->take_i2c_right(speed);
+	i2c->write_byte(addr, reg, data);
+	i2c->release_i2c_right();
+}
+
+u8 I2cIC::readByte(u8 addr, u8 reg)
+{
+	u8 data;
+	i2c->take_i2c_right(speed);
+	i2c->read_byte(addr, reg, &data);
+	i2c->release_i2c_right();
+	return data;
+}
+
+void I2cIC::readBytes(u8 addr, u8 reg, u8 len, u8 *buf)
+{
+	i2c->take_i2c_right(speed);
+	i2c->read_byte(addr, reg, buf, len);
+	//for (int i = 0; i < len; i++)
+	//{
+	//	i2c->read_byte(addr, reg + i, buf + i);
+	//}
+	i2c->release_i2c_right();
+}
+
+void I2cIC::writeBytes(u8 addr, u8 reg, u8 len, u8 *buf)
+{
+	i2c->take_i2c_right(speed);
+	i2c->write_byte(addr, reg, buf, len);
+	//for (int i = 0; i < len; i++)
+	//{
+	//	i2c->write_byte(addr, reg, buf[i]);
+	//}
+	i2c->release_i2c_right();
+}
 
 HardI2c::HardI2c(I2C_TypeDef *I2Cx, Gpio *scl_pin, Gpio *sda_pin)
 {

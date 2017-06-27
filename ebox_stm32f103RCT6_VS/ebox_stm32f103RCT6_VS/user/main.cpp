@@ -1,42 +1,60 @@
 #include "ebox.h"
-#include "mpu9250.h"
+#include "mpu6500.h"
 #include "my_math.h"
 #include "uart_vcan.h"
 
+
+
 FpsCounter fps;
-MPU9250AHRS mpu(&i2c1,MPU9250_Model_9255);
+MPU6500 mpu(&i2c1,MPU6500_Model_6555);
 UartVscan vscan(&uart1);
+
+//#define SEND_ANGLE
+#define SEND_RAW
 
 void setup()
 {
 	ebox_init();
 	uart1.begin(115200);
-	mpu.begin(400000, 200, MPU9250_Gyro_Full_Scale_2000dps, MPU9250_Accel_Full_Scale_8g);
+	mpu.begin();
 	fps.begin();
 }
 int main(void)
 {
 	setup();
-	//float t, gx, gy, gz, ax, ay, az, mx, my, mz;
-	//float pitch, roll, yaw;
+#ifdef SEND_RAW
+	float t, gx, gy, gz, ax, ay, az, mx, my, mz;
+#endif // SEND_RAW
+#ifdef SEND_ANGLE
 	float data[4];
+#endif // SEND_ANGLE
+
+	
 	while (1)
 	{
+#ifdef SEND_ANGLE
 		mpu.getAngle(data, data + 1, data + 2);
-		//uart1.printf("%f %f %f\r\n", pitch, roll, yaw);
 		data[3] = fps.getFps();
 		vscan.sendOscilloscope(data, 4);
+#endif // SEND_ANGLE
 
-		//mpu.getGyroscope(&gx, &gy, &gz);
-		//mpu.getAccelerometer(&ax, &ay, &az);
+#ifdef SEND_RAW
+		mpu.getGyroscope(&gx, &gy, &gz);
+		mpu.getAccelerometer(&ax, &ay, &az);
 		//mpu.getMagnetometer(&mx, &my, &mz);
-		//t = mpu.getTemperature();
+		t = mpu.getTemperature();
+		uart1.printf("%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\r\n",
+			t, gx, gy, gz, ax, ay, az, fps.getFps());//读取六轴标准单位数据
 		//uart1.printf("%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\r\n",
 		//	t, gx, gy, gz, ax, ay, az, mx, my, mz,fps.getFps());
-		//uart1.printf("%d %d %d %d %d %d %d %d %d %d\r\n",
-		//	t, gx, gy, gz, ax, ay, az, mx, my, mz);
+		//uart1.printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.3f\r\n",
+		//	t, gx, gy, gz, ax, ay, az, fps.getFps());//读取六轴原始数据
+		//uart1.printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.3f\r\n",
+		//	t, gx, gy, gz, ax, ay, az, mx, my, mz, fps.getFps());
 
-		delay_ms(1);
+#endif // SEND_RAW
+		
+		//delay_ms(7);
 	}
 
 }
