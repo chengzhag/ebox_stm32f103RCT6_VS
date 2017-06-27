@@ -124,7 +124,7 @@ typedef enum
 	MPU6500_A_DLPF_Bandwidth_420Hz = 7
 }MPU6500_A_DLPF_Bandwidth_Typedef;
 
-class MPU6500:protected I2cIC
+class MPU6500:public I2cIC
 {
 protected:
 	//≈‰÷√≤Œ ˝
