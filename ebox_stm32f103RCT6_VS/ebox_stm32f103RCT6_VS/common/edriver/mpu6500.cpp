@@ -9,7 +9,13 @@ MPU6500::MPU6500(I2c* i2c, MPU6500_Model_Typedef model, uint8_t address /*= addr
 	I2cIC(i2c),
 	address(address)
 {
-	mpuID = mpuIDList[model];
+	mpuID = mpuIDList[model]; 
+
+	for (int i = 0; i < 3; i++)
+	{
+		gyroBiasSub[i] = 0;
+		accelBiasSub[i] = 0;
+	}
 }
 
 void MPU6500::begin(uint32_t speed /*= 400000*/, uint16_t sampleRate /*= 1000*/,
@@ -100,7 +106,7 @@ void MPU6500::setBypass()
 	writeByte(address, MPU6500_INTBP_CFG, 0X82);//INT引脚低电平有效，开启bypass模式，可以直接读取磁力计
 }
 
-float MPU6500::getTemperature(void)
+float MPU6500::getTemp(void)
 {
 	u8 buf[2];
 	short raw;
@@ -111,7 +117,7 @@ float MPU6500::getTemperature(void)
 	return temp;
 }
 
-void MPU6500::getGyroscope(short *gx, short *gy, short *gz)
+void MPU6500::getGyro(short *gx, short *gy, short *gz)
 {
 	u8 buf[6];
 	readBytes(address, MPU6500_GYRO_XOUTH , 6, buf);
@@ -120,18 +126,18 @@ void MPU6500::getGyroscope(short *gx, short *gy, short *gz)
 	*gz = ((u16)buf[4] << 8) | buf[5];
 }
 
-void MPU6500::getGyroscope(float *gx, float *gy, float *gz)
+void MPU6500::getGyro(float *gx, float *gy, float *gz)
 {
 	short x, y, z;
-	getGyroscope(&x, &y, &z);
+	getGyro(&x, &y, &z);
 	//16.4 = 2^16/4000 lsb °/s     1/16.4=0.061     0.0174 = 3.14/180
 	//陀螺仪数据从ADC转化为弧度每秒(这里需要减去偏移值)
-	*gx = (double)x * gyroFsr * 5.31005859375e-7;  //2 / 65536 * 0.0174
-	*gy = (double)y * gyroFsr * 5.31005859375e-7;
-	*gz = (double)z * gyroFsr * 5.31005859375e-7;	//读出值减去基准值乘以单位，计算陀螺仪角速度
+	*gx = (double)x * gyroFsr * 5.31005859375e-7 - gyroBiasSub[0];  //2 / 65536 * 0.0174
+	*gy = (double)y * gyroFsr * 5.31005859375e-7 - gyroBiasSub[1];
+	*gz = (double)z * gyroFsr * 5.31005859375e-7 - gyroBiasSub[2];	//读出值减去基准值乘以单位，计算陀螺仪角速度
 }
 
-void MPU6500::getAccelerometer(short *ax, short *ay, short *az)
+void MPU6500::getAccel(short *ax, short *ay, short *az)
 {
 	u8 buf[6];
 	readBytes(address, MPU6500_ACCEL_XOUTH, 6, buf);
@@ -140,18 +146,109 @@ void MPU6500::getAccelerometer(short *ax, short *ay, short *az)
 	*az = ((u16)buf[4] << 8) | buf[5];
 }
 
-void MPU6500::getAccelerometer(float *ax, float *ay, float *az)
+void MPU6500::getAccel(float *ax, float *ay, float *az)
 {
 	short x, y, z;
-	getAccelerometer(&x, &y, &z);
+	getAccel(&x, &y, &z);
 	//+-8g,2^16/16=4096lsb/g--0.244mg/lsb
 	//此处0.0098是：(9.8m/s^2)/1000,乘以mg得m/s^2
-	*ax = (double)x * accelFsr * 2.99072265625e-4;  //2 * 9.8 / 65536
-	*ay = (double)y * accelFsr * 2.99072265625e-4;
-	*az = (double)z * accelFsr * 2.99072265625e-4;
+	*ax = (double)x * accelFsr * 0.000030517578125 - accelBiasSub[0];  //2 / 65536
+	*ay = (double)y * accelFsr * 0.000030517578125 - accelBiasSub[1];
+	*az = (double)z * accelFsr * 0.000030517578125 - accelBiasSub[2];
 }
 
 u16 MPU6500::getSampleRate()
 {
 	return sampleRate;
+}
+
+void MPU6500::caliGyro()
+{
+	getGyroBias(gyroBiasSub, gyroBiasSub + 1, gyroBiasSub + 2);
+}
+
+void MPU6500::setGyroBias(float bx, float by, float bz)
+{
+	gyroBiasSub[0] = bx;
+	gyroBiasSub[1] = by;
+	gyroBiasSub[2] = bz;
+}
+
+void MPU6500::getGyroBias(float* bx, float* by, float* bz, int sampleNum /*= 100*/)
+{
+	double g[3] = { 0 };
+	//暂存之前的偏差
+	float temp[3];
+	for (int i = 0; i < 3; i++)
+	{
+		temp[i] = gyroBiasSub[i];
+	}
+	setGyroBias(0, 0, 0);
+
+	//采样gSample次取平均
+	float gSample[3];
+	for (int i = 0; i < sampleNum; i++)
+	{
+		getGyro(gSample, gSample + 1, gSample + 2);
+		for (int j = 0; j < 3; j++)
+		{
+			g[j] += gSample[j];
+		}
+	}
+	for (int j = 0; j < 3; j++)
+	{
+		g[j] /= sampleNum;
+	}
+	*bx = g[0];
+	*by = g[1];
+	*bz = g[2];
+
+
+	//恢复之前暂存的偏差
+	setGyroBias(temp[0], temp[1], temp[2]);
+}
+
+void MPU6500::caliAccel()
+{
+	getAccelBias(accelBiasSub, accelBiasSub + 1, accelBiasSub + 2);
+}
+
+void MPU6500::setAccelBias(float bx, float by, float bz)
+{
+	accelBiasSub[0] = bx;
+	accelBiasSub[1] = by;
+	accelBiasSub[2] = bz;
+}
+
+void MPU6500::getAccelBias(float* bx, float* by, float* bz, int sampleNum /*= 100*/)
+{
+	double a[3] = { 0 };
+	//暂存之前的偏差
+	float temp[3];
+	for (int i = 0; i < 3; i++)
+	{
+		temp[i] = accelBiasSub[i];
+	}
+	setAccelBias(0, 0, 0);
+
+	//采样gSample次取平均
+	float gSample[3];
+	for (int i = 0; i < sampleNum; i++)
+	{
+		getAccel(gSample, gSample + 1, gSample + 2);
+		for (int j = 0; j < 3; j++)
+		{
+			a[j] += gSample[j];
+		}
+	}
+	for (int j = 0; j < 3; j++)
+	{
+		a[j] /= sampleNum;
+	}
+	*bx = a[0];
+	*by = a[1];
+	*bz = a[2] - 1;//减去重力加速度1g
+
+	//恢复之前暂存的偏差
+	setAccelBias(temp[0], temp[1], temp[2]);
 }

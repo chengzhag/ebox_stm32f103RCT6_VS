@@ -76,12 +76,15 @@ public:
 			ay *= norm;
 			az *= norm;
 
-			// Normalise magnetometer measurement
-			//正常化的磁力计测量值
-			norm = invSqrt(mx * mx + my * my + mz * mz);
-			mx *= norm;
-			my *= norm;
-			mz *= norm;
+			if (!((mx == 0.0f) && (my == 0.0f) && (mz == 0.0f)))
+			{
+				// Normalise magnetometer measurement
+				//正常化的磁力计测量值
+				norm = invSqrt(mx * mx + my * my + mz * mz);
+				mx *= norm;
+				my *= norm;
+				mz *= norm;
+			}
 
 			//预先进行四元数数据运算，以避免重复运算带来的效率问题。
 			// Auxiliary variables to avoid repeated arithmetic
@@ -168,24 +171,30 @@ public:
 	}
 };
 
+
 class MPU9250AHRS :public MPU9250, private MahonyAHRS9
 {
 protected:
 	void update()
 	{
 		float g[3], a[3], m[3];
-		getGyroscope(g, g + 1, g + 2);
-		getAccelerometer(a, a + 1, a + 2);
-		getMagnetometer(m, m + 1, m + 2);
+		getGyro(g, g + 1, g + 2);
+		getAccel(a, a + 1, a + 2);
+		getMag(m, m + 1, m + 2);
+		//MahonyAHRS9::update(
+		//	g[0], g[1], g[2],
+		//	a[0], a[1], a[2],
+		//	m[0], m[1], m[2]);
+
 		MahonyAHRS9::update(
-			g[0], g[1], g[2],
-			a[0], a[1], a[2],
-			m[0], m[1], m[2]);
+			-g[1], g[0], g[2],
+			-a[1], a[0], a[2],
+			m[0], -m[1], -m[2]);
 	}
 public:
 	MPU9250AHRS(I2c* i2c, MPU6500_Model_Typedef model = MPU6500_Model_6500) :
 		MPU9250(i2c, model),
-		MahonyAHRS9(100, 10, 0.05)
+		MahonyAHRS9(100, 2, 0.05)
 	{
 
 	}

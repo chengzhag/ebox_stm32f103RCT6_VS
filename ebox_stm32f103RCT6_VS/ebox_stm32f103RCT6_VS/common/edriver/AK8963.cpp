@@ -5,7 +5,12 @@ AK8963::AK8963(I2c* i2c, uint8_t address /*= AK8963_ADDRESS*/) :
 	I2cIC(i2c),
 	address(address)
 {
-
+	magBiasSub[0] = 0;
+	magBiasSub[1] = 0;
+	magBiasSub[2] = 0;
+	magSens[0] = 1;
+	magSens[1] = 1;
+	magSens[2] = 1;
 }
 
 void AK8963::begin(uint32_t speed /*= 400000*/)
@@ -36,18 +41,25 @@ void AK8963::begin(uint32_t speed /*= 400000*/)
 	timer.tic();
 }
 
-void AK8963::getMagnetometer(float *mx, float *my, float *mz)
+void AK8963::getMag(float *mx, float *my, float *mz)
 {
 	short x, y, z;
-	getMagnetometer(&x, &y, &z);
+	getMag(&x, &y, &z);
 	//±4800uT 2^16/9600 = 6.83lsb/uT     1/6.83 = 0.1465
 	//地磁强度为 5-6 x 10^(-5) T = 50 - 60 uT
-	*mx = (float)x*0.1465;
-	*my = (float)y*0.1465;
-	*mz = (float)z*0.1465;
+	if ((x == 0.0f) && (y == 0.0f) && (z == 0.0f))
+	{
+		*mx = 0;
+		*my = 0;
+		*mz = 0;
+		return;
+	}
+	*mx = ((float)x*0.1465 - magBiasSub[0])*magSens[0];
+	*my = ((float)y*0.1465 - magBiasSub[1])*magSens[1];
+	*mz = ((float)z*0.1465 - magBiasSub[2])*magSens[2];
 }
 
-void AK8963::getMagnetometer(short *mx, short *my, short *mz)
+void AK8963::getMag(short *mx, short *my, short *mz)
 {
 	//限制读取的频率<100Hz，避免AK8963死机？
 	if (timer.toc() >= 10 && (readByte(address, AK8963_ST1) & 0x01)) // wait for magnetometer data ready bit to be set
@@ -70,9 +82,22 @@ void AK8963::getMagnetometer(short *mx, short *my, short *mz)
 			*my = 0;
 			*mz = 0;
 		}
-		return;
 	}
-	*mx = 0;
-	*my = 0;
-	*mz = 0;
+	else
+	{
+		*mx = 0;
+		*my = 0;
+		*mz = 0;
+	}
+
+}
+
+void AK8963::setMagBiasSens(float bx, float by, float bz, float sx, float sy, float sz)
+{
+	magBiasSub[0] = bx;
+	magBiasSub[1] = by;
+	magBiasSub[2] = bz;
+	magSens[0] = sx;
+	magSens[1] = sy;
+	magSens[2] = sz;
 }

@@ -16,6 +16,12 @@
 #define MPU6500_SELF_TESTY 		0X0E	//自检寄存器Y
 #define MPU6500_SELF_TESTZ 		0X0F	//自检寄存器Z
 #define MPU6500_SELF_TESTA 		0X10	//自检寄存器A
+#define MPU6500_XG_OFFSET_H      0x13  // User-defined trim values for gyroscope
+#define MPU6500_XG_OFFSET_L      0x14
+#define MPU6500_YG_OFFSET_H      0x15
+#define MPU6500_YG_OFFSET_L      0x16
+#define MPU6500_ZG_OFFSET_H      0x17
+#define MPU6500_ZG_OFFSET_L      0x18
 #define MPU6500_SAMPLE_RATE 		0X19	//采样频率分频器
 #define MPU6500_CFG 				0X1A	//配置寄存器
 #define MPU6500_GYRO_CFG 		0X1B	//陀螺仪配置寄存器
@@ -78,6 +84,13 @@
 #define MPU6500_FIFO_CNTL 		0X73	//FIFO计数寄存器低八位
 #define MPU6500_FIFO_RW 			0X74	//FIFO读写寄存器
 #define MPU6500_DEVICE_ID 		0X75	//器件ID寄存器
+
+#define MPU6500_XA_OFFSET_H      0x77
+#define MPU6500_XA_OFFSET_L      0x78
+#define MPU6500_YA_OFFSET_H      0x7A
+#define MPU6500_YA_OFFSET_L      0x7B
+#define MPU6500_ZA_OFFSET_H      0x7D
+#define MPU6500_ZA_OFFSET_L      0x7E
 
 typedef enum
 {
@@ -143,6 +156,9 @@ protected:
 	static const uint16_t gyroFsrList[];
 	static const uint8_t accelFsrList[];
 
+	//校准偏差
+	float gyroBiasSub[3], accelBiasSub[3];
+
 public:
 	MPU6500(I2c* i2c, MPU6500_Model_Typedef model = MPU6500_Model_6500, uint8_t address = MPU6500_ADDRESS);
 
@@ -181,22 +197,43 @@ public:
 	///get函数
 
 	//得到温度值
-	float getTemperature(void);
+	float getTemp(void);
 
 	//得到陀螺仪值(原始值)
 	//gx,gy,gz:陀螺仪x,y,z轴的原始读数(带符号)
-	void getGyroscope(short *gx, short *gy, short *gz);
+	void getGyro(short *gx, short *gy, short *gz);
 	//gx,gy,gz:陀螺仪x,y,z轴的标准单位读数
-	void getGyroscope(float *gx, float *gy, float *gz);
+	void getGyro(float *gx, float *gy, float *gz);
 
 	//得到加速度值(原始值)
 	//gx,gy,gz:加速度x,y,z轴的原始读数(带符号)
-	void getAccelerometer(short *ax, short *ay, short *az);
-	//gx, gy, gz:加速度x, y, z轴的标准单位读数
-	void getAccelerometer(float *ax, float *ay, float *az);
+	void getAccel(short *ax, short *ay, short *az);
+	//gx, gy, gz:加速度x, y, z轴的标准单位读数(g)
+	void getAccel(float *ax, float *ay, float *az);
 
 	//获取采样率
 	u16 getSampleRate();
+
+
+	///校准
+
+	//在静止的情况下直接调用caliGyro
+	void caliGyro();
+
+	//设置GyroBias
+	void setGyroBias(float bx, float by, float bz);
+
+	//获取sampleNum次采样的校准前数据，作为偏差
+	void getGyroBias(float* bx, float* by, float* bz, int sampleNum = 100);
+
+	//在水平放置的情况下直接调用caliAccel
+	void caliAccel();
+
+	//设置GyroBias
+	void setAccelBias(float bx, float by, float bz);
+
+	//获取sampleNum次采样的校准前数据，作为偏差
+	void getAccelBias(float* bx, float* by, float* bz, int sampleNum = 100);
 };
 
 

@@ -32,6 +32,7 @@ protected:
 	uint8_t address;
 	float sensAdjustVal[3];
 	TicToc timer;
+	float magBiasSub[3], magSens[3];
 public:
 	AK8963(I2c* i2c, uint8_t address = AK8963_ADDRESS);
 
@@ -42,11 +43,14 @@ public:
 	//得到磁力计值(原始值)
 	//mx,my,mz:磁力计x,y,z轴的原始读数(带符号)
 	//如果mx、my、mz均为0，表明磁力计异常
-	void getMagnetometer(short *mx, short *my, short *mz);
+	void getMag(short *mx, short *my, short *mz);
 	//mx,my,mz:磁力计x, y, z轴的标准单位读数
-	void getMagnetometer(float *mx, float *my, float *mz);
+	void getMag(float *mx, float *my, float *mz);
 
-
+	//设置磁力计校准参数，椭球到正球的变换
+	void setMagBiasSens(
+		float bx, float by, float bz, 
+		float sx, float sy, float sz);
 };
 
 
