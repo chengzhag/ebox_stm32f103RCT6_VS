@@ -168,8 +168,6 @@ public:
 		MPU6500_DLPF_Bandwidth_Typedef bwDLPF = MPU6500_DLPF_Bandwidth_41Hz,
 		MPU6500_A_DLPF_Bandwidth_Typedef bwADLPF = MPU6500_A_DLPF_Bandwidth_44_8Hz);
 
-	///set函数
-
 	//设置陀螺仪传感器满量程范围
 	//fsr:0,±250dps;1,±500dps;2,±1000dps;3,±2000dps
 	void setGyroFsr(MPU6500_Gyro_Full_Scale_Typedef fsr);
@@ -190,11 +188,11 @@ public:
 
 	//设置采样率4~1000(Hz)
 	void setSampleRate(u16 sampleRate);
+	//获取采样率
+	u16 getSampleRate();
 
 	//设置bypass模式
 	void setBypass();
-
-	///get函数
 
 	//得到温度值
 	float getTemp(void);
@@ -211,9 +209,6 @@ public:
 	//gx, gy, gz:加速度x, y, z轴的标准单位读数(g)
 	void getAccel(float *ax, float *ay, float *az);
 
-	//获取采样率
-	u16 getSampleRate();
-
 
 	///校准
 
@@ -222,7 +217,6 @@ public:
 
 	//设置GyroBias
 	void setGyroBias(float bx, float by, float bz);
-
 	//获取sampleNum次采样的校准前数据，作为偏差
 	void getGyroBias(float* bx, float* by, float* bz, int sampleNum = 100);
 
@@ -231,7 +225,6 @@ public:
 
 	//设置GyroBias
 	void setAccelBias(float bx, float by, float bz);
-
 	//获取sampleNum次采样的校准前数据，作为偏差
 	void getAccelBias(float* bx, float* by, float* bz, int sampleNum = 100);
 };

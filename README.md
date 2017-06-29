@@ -60,6 +60,7 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
 - 陀螺仪
     - MPU6050
     - L3G4200D
+    - MPU9250AHRS：基于AHRS算法的9250驱动
 - 电子罗盘
     - lsm303dhlc
 - ADC

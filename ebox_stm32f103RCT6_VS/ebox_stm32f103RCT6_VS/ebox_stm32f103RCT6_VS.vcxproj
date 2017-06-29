@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="common\edriver\74HC595.cpp" />
     <ClCompile Include="common\edriver\accurate_pwm.cpp" />
+    <ClCompile Include="common\edriver\AHRS.cpp" />
     <ClCompile Include="common\edriver\AK8963.cpp" />
     <ClCompile Include="common\edriver\at24c02.cpp" />
     <ClCompile Include="common\edriver\at45db.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="common\cJSON\cJSON.h" />
     <ClInclude Include="common\edriver\74HC595.h" />
     <ClInclude Include="common\edriver\accurate_pwm.h" />
+    <ClInclude Include="common\edriver\AHRS.h" />
     <ClInclude Include="common\edriver\AK8963.h" />
     <ClInclude Include="common\edriver\at24c02.h" />
     <ClInclude Include="common\edriver\at45db.h" />

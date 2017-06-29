@@ -130,11 +130,11 @@ void MPU6500::getGyro(float *gx, float *gy, float *gz)
 {
 	short x, y, z;
 	getGyro(&x, &y, &z);
-	//16.4 = 2^16/4000 lsb °/s     1/16.4=0.061     0.0174 = 3.14/180
+	//16.4 = 2^16/4000 lsb °/s     1/16.4=0.061     0.0174 = 3.141593/180
 	//陀螺仪数据从ADC转化为弧度每秒(这里需要减去偏移值)
-	*gx = (double)x * gyroFsr * 5.31005859375e-7 - gyroBiasSub[0];  //2 / 65536 * 0.0174
-	*gy = (double)y * gyroFsr * 5.31005859375e-7 - gyroBiasSub[1];
-	*gz = (double)z * gyroFsr * 5.31005859375e-7 - gyroBiasSub[2];	//读出值减去基准值乘以单位，计算陀螺仪角速度
+	*gx = (double)x * gyroFsr * 5.326322767469618e-7 - gyroBiasSub[0];  //2 / 65536 * 0.0174
+	*gy = (double)y * gyroFsr * 5.326322767469618e-7 - gyroBiasSub[1];
+	*gz = (double)z * gyroFsr * 5.326322767469618e-7 - gyroBiasSub[2];	//读出值减去基准值乘以单位，计算陀螺仪角速度
 }
 
 void MPU6500::getAccel(short *ax, short *ay, short *az)
