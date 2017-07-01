@@ -10,7 +10,7 @@ void setup()
 int main(void)
 {
     setup();
-	servo.setPct(50);
+	servo.setPct(0);
     while(1)
     {
         uart1.printf("%f\n",servo.getPct());
