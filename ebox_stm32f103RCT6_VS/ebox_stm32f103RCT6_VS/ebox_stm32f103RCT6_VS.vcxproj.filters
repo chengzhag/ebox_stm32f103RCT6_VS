@@ -1402,6 +1402,9 @@
     <ClInclude Include="common\edriver\AHRS.h">
       <Filter>Header files\common\edriver</Filter>
     </ClInclude>
+    <ClInclude Include="common\edriver\resistive_touch_screen.h">
+      <Filter>Header files\common\edriver</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />

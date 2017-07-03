@@ -269,6 +269,7 @@
     <ClInclude Include="common\edriver\OLED_ssd1306.h" />
     <ClInclude Include="common\edriver\parallel_gpio.h" />
     <ClInclude Include="common\edriver\PID.hpp" />
+    <ClInclude Include="common\edriver\resistive_touch_screen.h" />
     <ClInclude Include="common\edriver\servo.h" />
     <ClInclude Include="common\edriver\si4432.h" />
     <ClInclude Include="common\edriver\tb6612fng.h" />

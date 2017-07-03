@@ -28,6 +28,8 @@ vs工程在ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS/ebox_stm32f103RCT6_VS文�
     - key_dm
 - 矩阵键盘
     - TM1638：带键盘扫描接口的LED驱动控制专用电路
+- 四线电阻屏
+    - resistive_touch_screen：基于ADC的四线电阻屏驱动
 ### 输出设备
 - 显示屏
     - FT800
