@@ -2,6 +2,8 @@
 #include "mpu9250.h"
 #include "my_math.h"
 #include "uart_vcan.h"
+#include "signal_stream.h"
+
 
 
 

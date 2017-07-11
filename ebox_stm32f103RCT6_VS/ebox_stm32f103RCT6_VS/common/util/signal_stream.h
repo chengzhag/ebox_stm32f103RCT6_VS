@@ -2,25 +2,6 @@
 #define __SIGNAL_STREAM
 
 
-//用SignalStream实现的均值滤波类
-template<int filterWindow>
-class AverageFilter :public SignalStream<float, filterWindow>
-{
-public:
-	float getFilterOut(float newNum)
-	{
-		push(newNum);
-		float temp = 0;
-		for (int i = 0; i < filterWindow; i++)
-		{
-			temp += operator[](i);
-		}
-		temp /= filterWindow;
-		return temp;
-	}
-};
-
-
 //用circle buffer实现的试试信号处理类
 //仅做信号存储，通过继承或实例化实现信号处理函数
 //注意模板类的函数实现必须写在头文件中
@@ -87,4 +68,21 @@ T & SignalStream<T, Size>::operator[](int index)
 	return buf[(index + indexHead) % Size];
 }
 
+//用SignalStream实现的均值滤波类
+template<int filterWindow>
+class AverageFilter :public SignalStream<float, filterWindow>
+{
+public:
+	float getFilterOut(float newNum)
+	{
+		SignalStream<float, filterWindow>::push(newNum);
+		float temp = 0;
+		for (int i = 0; i < filterWindow; i++)
+		{
+			temp += SignalStream<float, filterWindow>::operator[](i);
+		}
+		temp /= filterWindow;
+		return temp;
+	}
+};
 #endif
