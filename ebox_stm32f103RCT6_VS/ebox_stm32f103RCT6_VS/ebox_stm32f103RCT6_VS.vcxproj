@@ -117,6 +117,7 @@
     <ClCompile Include="common\edriver\OLED_ssd1306.cpp" />
     <ClCompile Include="common\edriver\parallel_gpio.cpp" />
     <ClCompile Include="common\edriver\PID.cpp" />
+    <ClCompile Include="common\edriver\resistive_touch_screen.cpp" />
     <ClCompile Include="common\edriver\servo.cpp" />
     <ClCompile Include="common\edriver\si4432.cpp" />
     <ClCompile Include="common\edriver\tb6612fng.cpp" />

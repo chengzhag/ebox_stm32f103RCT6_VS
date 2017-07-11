@@ -764,6 +764,9 @@
     <ClCompile Include="common\edriver\AHRS.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
+    <ClCompile Include="common\edriver\resistive_touch_screen.cpp">
+      <Filter>Source files\common\edriver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\bigiot\bigiot.h">
