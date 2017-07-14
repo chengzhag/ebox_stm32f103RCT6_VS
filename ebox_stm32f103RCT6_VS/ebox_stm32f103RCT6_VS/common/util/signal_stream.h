@@ -75,6 +75,7 @@ class AverageFilter :public SignalStream<float, filterWindow>
 public:
 	float getFilterOut(float newNum)
 	{
+
 		SignalStream<float, filterWindow>::push(newNum);
 		float temp = 0;
 		for (int i = 0; i < filterWindow; i++)
@@ -84,5 +85,24 @@ public:
 		temp /= filterWindow;
 		return temp;
 	}
+};
+
+//用SignalStream实现的均值滤波类增强版，减少运算量
+template<int sampleFrq, int stopFrq>
+class AverageFilterEnhance :public SignalStream<float, int(0.443*sampleFrq / stopFrq)>
+{
+public:
+	float getFilterOut(float newNum)
+	{
+		float old = SignalStream<float, int(0.443*sampleFrq / stopFrq)>::operator [](int(0.443*sampleFrq / stopFrq) - 1);
+		SignalStream<float, int(0.443*sampleFrq / stopFrq)>::push(newNum);
+		float temp = 0;
+		this->sumTemp = this->sumTemp + newNum - old;
+		temp = this->sumTemp / int(0.443*sampleFrq / stopFrq);
+		return temp;
+	}
+private:
+	float sumTemp;
+
 };
 #endif
