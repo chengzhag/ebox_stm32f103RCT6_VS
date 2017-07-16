@@ -1,6 +1,7 @@
 #ifndef __SIGNAL_STREAM
 #define __SIGNAL_STREAM
-
+#define  pi 3.14159265
+#include <math.h>
 
 //用circle buffer实现的试试信号处理类
 //仅做信号存储，通过继承或实例化实现信号处理函数
@@ -105,4 +106,43 @@ private:
 	float sumTemp;
 
 };
+
+class Butterworth
+
+{
+public:
+	Butterworth(float sampleFrq,float stopFrq);
+	float getFilterOut(float x);
+	~Butterworth();
+private:
+	float stopFrq;
+	float sampleFrq;
+	float tempY;
+	float tempX;
+};
+
+Butterworth::Butterworth(float sampleFrq, float stopFrq)
+{
+	this->sampleFrq = sampleFrq;
+//	this->stopFrq = tan(3.14159265*stopFrq/sampleFrq);
+	this->stopFrq = (2 * stopFrq / sampleFrq);
+	this->tempY = 0;
+	this->tempX = 0;
+
+}
+
+Butterworth::~Butterworth()
+{
+}
+
+float Butterworth::getFilterOut(float x)
+{
+
+	//float y =- 1 / stopFrq*tempY + (1+1 / stopFrq)*x;
+//	float y = (stopFrq - 1) / (stopFrq + 1)*tempY + stopFrq / (1+stopFrq)*(x + tempX);
+	float y = tempY*(1-stopFrq)+stopFrq*x;
+	tempY = y;
+	tempX = x;
+	return y;
+}
 #endif
