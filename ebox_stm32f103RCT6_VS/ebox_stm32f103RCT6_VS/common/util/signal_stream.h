@@ -107,13 +107,13 @@ private:
 
 };
 
-class Butterworth
+class RcFilter
 
 {
 public:
-	Butterworth(float sampleFrq,float stopFrq);
+	RcFilter(float sampleFrq, float stopFrq);
 	float getFilterOut(float x);
-	~Butterworth();
+	~RcFilter();
 private:
 	float stopFrq;
 	float sampleFrq;
@@ -121,26 +121,26 @@ private:
 	float tempX;
 };
 
-Butterworth::Butterworth(float sampleFrq, float stopFrq)
+RcFilter::RcFilter(float sampleFrq, float stopFrq)
 {
 	this->sampleFrq = sampleFrq;
 //	this->stopFrq = tan(3.14159265*stopFrq/sampleFrq);
-	this->stopFrq = (2 * stopFrq / sampleFrq);
+//	this->stopFrq = (2 * stopFrq / sampleFrq)/2;    //定性分析
+	this->stopFrq = 1 /(1+ (2 * pi*stopFrq /(sampleFrq)));    //定量分析
 	this->tempY = 0;
 	this->tempX = 0;
 
 }
 
-Butterworth::~Butterworth()
+RcFilter::~RcFilter()
 {
 }
 
-float Butterworth::getFilterOut(float x)
+float RcFilter::getFilterOut(float x)
 {
 
-	//float y =- 1 / stopFrq*tempY + (1+1 / stopFrq)*x;
-//	float y = (stopFrq - 1) / (stopFrq + 1)*tempY + stopFrq / (1+stopFrq)*(x + tempX);
-	float y = tempY*(1-stopFrq)+stopFrq*x;
+	//float y = tempY*(1-stopFrq)+stopFrq*x;  //定性分析
+	float y = tempY*stopFrq + (1 - stopFrq)*x;  //定量分析
 	tempY = y;
 	tempX = x;
 	return y;
