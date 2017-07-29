@@ -650,6 +650,9 @@
     <ClCompile Include="user\main.cpp">
       <Filter>Source files\user</Filter>
     </ClCompile>
+    <ClCompile Include="common\edriver\MPU6050.cpp">
+      <Filter>Source files\common\edriver</Filter>
+    </ClCompile>
     <ClCompile Include="common\edriver\encoder_exti.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
@@ -657,9 +660,6 @@
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
     <ClCompile Include="common\edriver\encoder_timer.cpp">
-      <Filter>Source files\common\edriver</Filter>
-    </ClCompile>
-    <ClCompile Include="common\edriver\PID.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
     <ClCompile Include="common\edriver\tb6612fng.cpp">
@@ -749,13 +749,10 @@
     <ClCompile Include="common\edriver\oled_i2c.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
-    <ClCompile Include="common\edriver\mpu9250.cpp">
-      <Filter>Source files\common\edriver</Filter>
-    </ClCompile>
-    <ClCompile Include="common\edriver\MPU6050.cpp">
-      <Filter>Source files\common\edriver</Filter>
-    </ClCompile>
     <ClCompile Include="common\edriver\mpu6500.cpp">
+      <Filter>Source files\common\edriver</Filter>
+    </ClCompile>
+    <ClCompile Include="common\edriver\mpu9250.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
     <ClCompile Include="common\edriver\AK8963.cpp">
@@ -764,10 +761,13 @@
     <ClCompile Include="common\edriver\AHRS.cpp">
       <Filter>Source files\common\edriver</Filter>
     </ClCompile>
-    <ClCompile Include="common\edriver\resistive_touch_screen.cpp">
-      <Filter>Source files\common\edriver</Filter>
-    </ClCompile>
     <ClCompile Include="common\util\interpolation.cpp">
+      <Filter>Source files\common\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\signal_stream.cpp">
+      <Filter>Source files\common\util</Filter>
+    </ClCompile>
+    <ClCompile Include="common\util\PID.cpp">
       <Filter>Source files\common\util</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1297,9 +1297,6 @@
     <ClInclude Include="common\edriver\encoder_timer.h">
       <Filter>Header files\common\edriver</Filter>
     </ClInclude>
-    <ClInclude Include="common\edriver\PID.hpp">
-      <Filter>Header files\common\edriver</Filter>
-    </ClInclude>
     <ClInclude Include="common\edriver\tb6612fng.h">
       <Filter>Header files\common\edriver</Filter>
     </ClInclude>
@@ -1408,10 +1405,16 @@
     <ClInclude Include="common\edriver\AHRS.h">
       <Filter>Header files\common\edriver</Filter>
     </ClInclude>
-    <ClInclude Include="common\edriver\resistive_touch_screen.h">
-      <Filter>Header files\common\edriver</Filter>
-    </ClInclude>
     <ClInclude Include="common\util\interpolation.h">
+      <Filter>Header files\common\util</Filter>
+    </ClInclude>
+    <ClInclude Include="user\signal_table.h">
+      <Filter>Header files\user</Filter>
+    </ClInclude>
+    <ClInclude Include="common\util\PID.h">
+      <Filter>Header files\common\util</Filter>
+    </ClInclude>
+    <ClInclude Include="common\util\fuzzyTable.h">
       <Filter>Header files\common\util</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1438,6 +1441,7 @@
     <None Include="mcu\stm32f10x\libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\arm\startup_stm32f10x_md.s">
       <Filter>Source files</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="MCU.xml">
