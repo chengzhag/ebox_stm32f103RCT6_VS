@@ -35,7 +35,18 @@ void DRV8825::begin()
 
 void DRV8825::setPct(float percent)
 {
-	setFre(maxFre*percent / 100);
+	limit<float>(percent, -100, 100);
+	pct = percent;
+	if (percent > 0)
+	{
+		pinDir->set();
+		pwm.set_frq(percent*maxFre / 100);
+	}
+	else
+	{
+		pinDir->reset();
+		pwm.set_frq(-percent*maxFre / 100);
+	}
 }
 
 float DRV8825::getPct()

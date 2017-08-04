@@ -11,9 +11,6 @@ class DRV8825
 	float pct;
 	int maxFre;
 
-	//设置输出频率，负则反向，限制在maxFre范围内
-	void setFre(int frequency);
-
 public:
 	//DRV8825步进电机驱动
 	//pinStep：输出到STEP脚，必须为pwm口
@@ -25,10 +22,11 @@ public:
 
 	//设置输出百分比
 	void setPct(float percent);
-	
 	//获取百分比
 	float getPct();
 
+	//设置输出频率，负则反向，限制在maxFre范围内
+	void setFre(int frequency);
 	//获取频率
 	int getFre();
 
