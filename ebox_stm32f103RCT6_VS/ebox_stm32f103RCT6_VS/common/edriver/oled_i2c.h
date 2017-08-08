@@ -3,6 +3,14 @@
 
 #include "ebox.h"
 
+typedef enum
+{
+	Oledi2c_Font_6x8,
+	Oledi2c_Font_8x16,
+	Oledi2c_Font_6x8_Inv,
+	Oledi2c_Font_8x16_Inv
+}Oledi2c_Font_Typedef;
+
 class OLEDI2C
 {
 	uint32_t speed;
@@ -36,13 +44,12 @@ public:
 	//让OLED休眠 -- 休眠模式下,OLED功耗不到10uA
 	void display_off(void);
 
-	void show_char(unsigned char x, unsigned char y, char ch, unsigned char TextSize = 1);
+	void show_char(unsigned char x, unsigned char y, char ch, Oledi2c_Font_Typedef TextSize = Oledi2c_Font_6x8);
 
 	//x,y -- 起始点坐标(x:0~127, y:0~7); ch[] -- 要显示的字符串; TextSize -- 字符大小(1:6*8 ; 2:8*16)
 	//显示codetab.h中的ASCII字符,有6*8和8*16可选择
-	void show_string(unsigned char x, unsigned char y, char ch[], unsigned char TextSize = 1);
-
-	void printf(uint8_t x, uint8_t y, unsigned char TextSize, const char *fmt, ...);
+	void show_string(unsigned char x, unsigned char y, char ch[], Oledi2c_Font_Typedef TextSize = Oledi2c_Font_6x8);
+	void printf(uint8_t x, uint8_t y, Oledi2c_Font_Typedef TextSize, const char *fmt, ...);
 
 	//x,y -- 起始点坐标(x:0~127, y:0~7); N:汉字在codetab.h中的索引
 	//显示codetab.h中的汉字,16*16点阵

@@ -105,12 +105,12 @@ void OLEDI2C::display_off(void)
 	write_cmd(0XAE);  //OLEDÐÝÃß
 }
 
-void OLEDI2C::show_char(unsigned char x, unsigned char y, char ch, unsigned char TextSize /*= 1*/)
+void OLEDI2C::show_char(unsigned char x, unsigned char y, char ch, Oledi2c_Font_Typedef TextSize)
 {
 	unsigned char c = 0, i = 0;
 	switch (TextSize)
 	{
-	case 1:
+	case Oledi2c_Font_6x8:
 	{
 		c = ch - 32;
 		if (x > 126)
@@ -123,7 +123,7 @@ void OLEDI2C::show_char(unsigned char x, unsigned char y, char ch, unsigned char
 			write_data(font6x8[c][i]);
 		x += 6;
 	}break;
-	case 2:
+	case Oledi2c_Font_8x16:
 	{
 		c = ch - 32;
 		if (x > 120)
@@ -139,10 +139,39 @@ void OLEDI2C::show_char(unsigned char x, unsigned char y, char ch, unsigned char
 			write_data(font8x16[c * 16 + i + 8]);
 		x += 8;
 	}break;
+	case Oledi2c_Font_6x8_Inv:
+	{
+		c = ch - 32;
+		if (x > 126)
+		{
+			x = 0;
+			y++;
+		}
+		set_xy(x, y);
+		for (i = 0; i < 6; i++)
+			write_data(~font6x8[c][i]);
+		x += 6;
+	}break;
+	case Oledi2c_Font_8x16_Inv:
+	{
+		c = ch - 32;
+		if (x > 120)
+		{
+			x = 0;
+			y++;
+		}
+		set_xy(x, y);
+		for (i = 0; i < 8; i++)
+			write_data(~font8x16[c * 16 + i]);
+		set_xy(x, y + 1);
+		for (i = 0; i < 8; i++)
+			write_data(~font8x16[c * 16 + i + 8]);
+		x += 8;
+	}break;
 	}
 }
 
-void OLEDI2C::show_string(unsigned char x, unsigned char y, char ch[], unsigned char TextSize /*= 1*/)
+void OLEDI2C::show_string(unsigned char x, unsigned char y, char ch[], Oledi2c_Font_Typedef TextSize)
 {
 	unsigned char j = 0;
 	while (ch[j] != '\0')
@@ -158,7 +187,7 @@ void OLEDI2C::show_string(unsigned char x, unsigned char y, char ch[], unsigned 
 	}
 }
 
-void OLEDI2C::printf(uint8_t x, uint8_t y, unsigned char TextSize, const char *fmt, ...)
+void OLEDI2C::printf(uint8_t x, uint8_t y, Oledi2c_Font_Typedef TextSize, const char *fmt, ...)
 {
 	int     size1 = 0;
 	size_t  size2 = 256;
