@@ -8,9 +8,6 @@
 #pragma clang diagnostic push
 
 #pragma clang diagnostic ignored "-Wreserved-id-macro"
-#ifndef STM32F10X_MD
-#define STM32F10X_MD 1
-#endif
 #ifndef __DBL_MIN_EXP__
 #define __DBL_MIN_EXP__ (-1021)
 #endif
@@ -244,6 +241,9 @@
 #endif
 #ifndef __USER_LABEL_PREFIX__
 #define __USER_LABEL_PREFIX__ 
+#endif
+#ifndef STM32F10X_HD
+#define STM32F10X_HD 1
 #endif
 #ifndef __STDC_HOSTED__
 #define __STDC_HOSTED__ 1
